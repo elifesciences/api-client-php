@@ -32,15 +32,17 @@ API clients always return instances of `GuzzleHttp\Promise\PromiseInterface`, wh
 
 To list the Labs Experiment numbers that appear on the first page of the endpoint:
 
-    use eLife\ApiSdk\ApiClient\LabsClient;
-    use eLife\ApiSdk\HttpClient\Guzzle6HttpClient;
-    use GuzzleHttp\Client as Guzzle;
-    
-    $guzzle = new Guzzle(['base_uri' => 'https://api.elifesciences.org/']);
-    $httpClient = new Guzzle6HttpClient($guzzle);
-    $labsClient = new LabsClient($httpClient);
+```php
+use eLife\ApiSdk\ApiClient\LabsClient;
+use eLife\ApiSdk\HttpClient\Guzzle6HttpClient;
+use GuzzleHttp\Client as Guzzle;
 
-    var_dump($labsClient->listExperiments(1)->wait()->search('items[*].number'));
+$guzzle = new Guzzle(['base_uri' => 'https://api.elifesciences.org/']);
+$httpClient = new Guzzle6HttpClient($guzzle);
+$labsClient = new LabsClient($httpClient);
+
+var_dump($labsClient->listExperiments(1)->wait()->search('items[*].number'));
+```
 
 ### Deprecation warnings
 
