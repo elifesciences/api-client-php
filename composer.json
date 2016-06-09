@@ -1,0 +1,38 @@
+{
+    "name": "elife/api-sdk",
+    "description": "eLife Sciences API SDK",
+    "type": "library",
+    "license": "GPL-3.0+",
+    "autoload": {
+        "psr-4": {
+            "eLife\\ApiSdk\\": "./src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\eLife\\ApiSdk\\": "./spec",
+            "tests\\eLife\\ApiSdk\\": "./test"
+        }
+    },
+    "require": {
+        "php": "^7.0",
+        "beberlei/assert": "^2.0",
+        "crell/api-problem": "^1.0",
+        "guzzlehttp/promises": "^1.0",
+        "guzzlehttp/psr7": "^1.0",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "guzzlehttp/guzzle": "^6.0",
+        "mtdowling/jmespath.php": "^2.0",
+        "phpspec/phpspec": "^2.4",
+        "phpspec/prophecy": "^1.5",
+        "phpunit/phpunit": "^5.2",
+        "psr/log": "^1.0"
+    },
+    "suggest": {
+        "guzzlehttp/guzzle": "^6.0, to use the Guzzle6HttpClient adapter",
+        "mtdowling/jmespath.php": "^2.0, to use the Result::search() method",
+        "psr/log": "^1.0, to use the WarningCheckingHttpClient adapter"
+    }
+}
