@@ -1,6 +1,8 @@
 eLife API SDK for PHP
 =====================
 
+[![Build Status](https://travis-ci.org/elifesciences/api-sdk-php.svg?branch=master)](https://travis-ci.org/elifesciences/api-sdk-php)
+
 This library provides a PHP SDK for the [eLife Sciences API](https://github.com/elifesciences/api-raml).
 
 Dependencies
