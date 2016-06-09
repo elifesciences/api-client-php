@@ -20,11 +20,6 @@ final class LabsClientSpec extends ObjectBehavior
         $this->beConstructedWith($httpClient);
     }
 
-    public function it_is_initializable()
-    {
-        $this->shouldHaveType('eLife\ApiSdk\ApiClient\LabsClient');
-    }
-
     public function it_gets_an_experiment()
     {
         $request = new Request('GET', 'labs-experiments/3',
