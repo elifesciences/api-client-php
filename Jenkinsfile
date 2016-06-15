@@ -1,7 +1,7 @@
 elifePipeline {
     node("libraries") {
         stage 'Checkout'
-        git url: 'git@github.com:giorgiosironi/api-sdk-php.git'
+        checkout scm
 
         stage 'Tests'
         sh './project_tests.sh'
