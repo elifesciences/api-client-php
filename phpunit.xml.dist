@@ -16,8 +16,4 @@
         </whitelist>
     </filter>
 
-    <logging>
-        <log type="junit" target="build/phpunit.xml" />
-    </logging>
-
 </phpunit>
