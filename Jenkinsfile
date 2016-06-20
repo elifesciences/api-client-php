@@ -1,24 +1,12 @@
 elifePipeline {
     node("libraries") {
-        def stepsForParallel = [:]
-        stepsForParallel["dependencies=lowest"] = {
-            stage 'Checkout'
-            checkout scm
+        stage 'Checkout'
+        checkout scm
 
-            stage 'Tests'
-            node {
-                sh 'dependencies=lowest ./project_tests.sh'
-            }
-        }
-        stepsForParallel["normal"] = {
-            stage 'Checkout'
-            checkout scm
+        stage 'Tests, lowest'
+        sh 'dependencies=lowest ./project_tests.sh'
 
-            stage 'Tests'
-            node {
-                sh './project_tests.sh'
-            }
-        }
-        parallel stepsForParallel
+        stage 'Tests, normal'
+        sh './project_tests.sh'
     }
 }
