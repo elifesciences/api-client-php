@@ -4,6 +4,17 @@ elifePipeline {
         checkout scm
 
         stage 'Tests'
-        sh './project_tests.sh'
+        def stepsForParallel = [:]
+        stepsForParallel["dependencies=lowest"] = {
+            node {
+                sh 'dependencies=lowest ./project_tests.sh'
+            }
+        }
+        stepsForParallel["normal"] = {
+            node {
+                sh './project_tests.sh'
+            }
+        }
+        parallel stepsForParallel
     }
 }
