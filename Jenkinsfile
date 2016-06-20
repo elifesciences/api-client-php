@@ -3,18 +3,17 @@ elifePipeline {
         stage 'Checkout'
         checkout scm
 
-        stage 'Tests, lowest dependencies'
-        sh 'dependencies=lowest ./project_tests.sh || echo TESTS FAILED'
-        elifeTestArtifact 'build/lowest-phpspec.xml'
-        elifeVerifyJunitXml 'build/lowest-phpspec.xml'
-        elifeTestArtifact 'build/lowest-phpunit.xml'
-        elifeVerifyJunitXml 'build/lowest-phpunit.xml'
+        def dependenciesVariants = ['lowest', 'default']
 
-        stage 'Tests, default dependencies'
-        sh 'dependencies=default ./project_tests.sh || echo TESTS FAILED'
-        elifeTestArtifact 'build/default-phpspec.xml'
-        elifeVerifyJunitXml 'build/default-phpspec.xml'
-        elifeTestArtifact 'build/default-phpunit.xml'
-        elifeVerifyJunitXml 'build/default-phpunit.xml'
+        for (int i = 0; i < dependenciesVariants.size(); i++) {
+            def dependencies = dependenciesVariants.get(i)
+
+            stage "Tests, ${dependencies} dependencies"
+            sh "dependencies=${dependencies} ./project_tests.sh || echo TESTS FAILED"
+            elifeTestArtifact "build/${dependencies}-phpspec.xml"
+            elifeVerifyJunitXml "build/${dependencies}-phpspec.xml"
+            elifeTestArtifact "build/${dependencies}-phpunit.xml"
+            elifeVerifyJunitXml "build/${dependencies}-phpunit.xml"
+        }
     }
 }
