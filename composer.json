@@ -34,5 +34,10 @@
         "guzzlehttp/guzzle": "^6.0, to use the Guzzle6HttpClient adapter",
         "mtdowling/jmespath.php": "^2.0, to use the Result::search() method",
         "psr/log": "^1.0, to use the WarningCheckingHttpClient adapter"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 }
