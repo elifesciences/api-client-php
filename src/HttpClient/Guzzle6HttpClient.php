@@ -9,13 +9,13 @@ use eLife\ApiSdk\Exception\NetworkException;
 use eLife\ApiSdk\Exception\ResponseException;
 use eLife\ApiSdk\HttpClient;
 use eLife\ApiSdk\Result\HttpResult;
-use Exception;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
 
 final class Guzzle6HttpClient implements HttpClient
 {
@@ -34,7 +34,7 @@ final class Guzzle6HttpClient implements HttpClient
                     return HttpResult::fromResponse($response);
                 }
             )->otherwise(
-                function (Exception $e) {
+                function (Throwable $e) {
                     if ($e instanceof BadResponseException) {
                         if ('application/problem+json' === $e->getResponse()->getHeaderLine('Content-Type')) {
                             $apiProblem = ApiProblem::fromJson((string) $e->getResponse()->getBody());
