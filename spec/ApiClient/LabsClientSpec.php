@@ -31,4 +31,16 @@ final class LabsClientSpec extends ObjectBehavior
 
         $this->getExperiment(2, 3)->shouldBeLike($response);
     }
+
+    public function it_lists_experiments()
+    {
+        $request = new Request('GET', 'labs-experiments?page=1&per-page=20&order=desc',
+            ['Accept' => 'application/vnd.elife.labs-experiment-list+json; version=2']);
+        $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.labs-experiment-list+json',
+            2), ['foo' => ['bar', 'baz']]));
+
+        $this->httpClient->send($request)->willReturn($response);
+
+        $this->listExperiments(2)->shouldBeLike($response);
+    }
 }

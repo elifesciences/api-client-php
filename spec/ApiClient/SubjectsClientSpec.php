@@ -31,4 +31,16 @@ final class SubjectsClientSpec extends ObjectBehavior
 
         $this->getSubject(2, 'cell-biology')->shouldBeLike($response);
     }
+
+    public function it_lists_subjects()
+    {
+        $request = new Request('GET', 'subjects?page=1&per-page=20&order=desc',
+            ['Accept' => 'application/vnd.elife.subject-list+json; version=2']);
+        $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.subject-list+json',
+            2), ['foo' => ['bar', 'baz']]));
+
+        $this->httpClient->send($request)->willReturn($response);
+
+        $this->listSubjects(2)->shouldBeLike($response);
+    }
 }
