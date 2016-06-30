@@ -18,10 +18,14 @@ final class LabsClient
         );
     }
 
-    public function listExperiments(int $version, int $page = 1, int $perPage = 20) : PromiseInterface
-    {
+    public function listExperiments(
+        int $version,
+        int $page = 1,
+        int $perPage = 20,
+        bool $descendingOrder = true
+    ) : PromiseInterface {
         return $this->getRequest(
-            'labs-experiments?page='.$page.'&per-page='.$perPage,
+            'labs-experiments?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc'),
             new MediaType('application/vnd.elife.labs-experiment-list+json', $version)
         );
     }

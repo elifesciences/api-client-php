@@ -18,10 +18,14 @@ final class SubjectsClient
         );
     }
 
-    public function listSubjects(int $version, int $page = 1, int $perPage = 20) : PromiseInterface
-    {
+    public function listSubjects(
+        int $version,
+        int $page = 1,
+        int $perPage = 20,
+        bool $descendingOrder = true
+    ) : PromiseInterface {
         return $this->getRequest(
-            'subjects?page='.$page.'&per-page='.$perPage,
+            'subjects?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc'),
             new MediaType('application/vnd.elife.subject-list+json', $version)
         );
     }
