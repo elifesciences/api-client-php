@@ -5,7 +5,7 @@ namespace eLife\ApiSdk\HttpClient;
 use Crell\ApiProblem\ApiProblem;
 use eLife\ApiSdk\Exception\ApiException;
 use eLife\ApiSdk\Exception\ApiProblemResponse;
-use eLife\ApiSdk\Exception\NetworkException;
+use eLife\ApiSdk\Exception\NetworkProblem;
 use eLife\ApiSdk\Exception\BadResponse;
 use eLife\ApiSdk\HttpClient;
 use eLife\ApiSdk\Result\HttpResult;
@@ -43,7 +43,7 @@ final class Guzzle6HttpClient implements HttpClient
                             throw new BadResponse($e->getMessage(), $e->getRequest(), $e->getResponse(), $e);
                         }
                     } elseif ($e instanceof RequestException) {
-                        throw new NetworkException($e->getMessage(), $e->getRequest(), $e);
+                        throw new NetworkProblem($e->getMessage(), $e->getRequest(), $e);
                     }
 
                     throw new ApiException($e->getMessage(), $e);

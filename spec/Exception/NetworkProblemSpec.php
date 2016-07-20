@@ -7,7 +7,7 @@ use Exception;
 use GuzzleHttp\Psr7\Request;
 use PhpSpec\ObjectBehavior;
 
-final class NetworkExceptionSpec extends ObjectBehavior
+final class NetworkProblemSpec extends ObjectBehavior
 {
     private $message;
     private $request;
