@@ -3,7 +3,7 @@
 namespace spec\eLife\ApiSdk\Exception;
 
 use Crell\ApiProblem\ApiProblem;
-use eLife\ApiSdk\Exception\ResponseException;
+use eLife\ApiSdk\Exception\BadResponse;
 use Exception;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -53,6 +53,6 @@ final class ApiProblemResponseSpec extends ObjectBehavior
 
     public function it_is_a_response_exception()
     {
-        $this->shouldHaveType(ResponseException::class);
+        $this->shouldHaveType(BadResponse::class);
     }
 }

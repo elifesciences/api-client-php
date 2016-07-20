@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PhpSpec\ObjectBehavior;
 
-final class ResponseExceptionSpec extends ObjectBehavior
+final class BadResponseSpec extends ObjectBehavior
 {
     private $message;
     private $request;
