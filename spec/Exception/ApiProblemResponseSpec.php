@@ -51,7 +51,7 @@ final class ApiProblemResponseSpec extends ObjectBehavior
         $this->getPrevious()->shouldBeLike($previous);
     }
 
-    public function it_is_a_response_exception()
+    public function it_is_a_problem_response()
     {
         $this->shouldHaveType(BadResponse::class);
     }

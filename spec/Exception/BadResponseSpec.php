@@ -50,7 +50,7 @@ final class BadResponseSpec extends ObjectBehavior
         $this->getPrevious()->shouldBeLike($previous);
     }
 
-    public function it_is_a_http_exception()
+    public function it_is_a_http_problem()
     {
         $this->shouldHaveType(HttpProblem::class);
     }
