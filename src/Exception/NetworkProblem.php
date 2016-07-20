@@ -2,6 +2,6 @@
 
 namespace eLife\ApiSdk\Exception;
 
-class NetworkException extends HttpException
+class NetworkProblem extends HttpProblem
 {
 }

@@ -7,9 +7,9 @@ use eLife\ApiSdk\Result;
 use InvalidArgumentException;
 use Iterator;
 use IteratorAggregate;
-use function JmesPath\search;
 use Psr\Http\Message\ResponseInterface;
 use UnexpectedValueException;
+use function JmesPath\search;
 
 final class HttpResult implements IteratorAggregate, Result
 {

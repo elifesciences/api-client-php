@@ -4,9 +4,9 @@ namespace eLife\ApiSdk\HttpClient;
 
 use Crell\ApiProblem\ApiProblem;
 use eLife\ApiSdk\Exception\ApiException;
-use eLife\ApiSdk\Exception\ApiProblemException;
-use eLife\ApiSdk\Exception\NetworkException;
-use eLife\ApiSdk\Exception\ResponseException;
+use eLife\ApiSdk\Exception\ApiProblemResponse;
+use eLife\ApiSdk\Exception\BadResponse;
+use eLife\ApiSdk\Exception\NetworkProblem;
 use eLife\ApiSdk\HttpClient;
 use eLife\ApiSdk\Result\HttpResult;
 use GuzzleHttp\ClientInterface;
@@ -38,12 +38,12 @@ final class Guzzle6HttpClient implements HttpClient
                     if ($e instanceof BadResponseException) {
                         if ('application/problem+json' === $e->getResponse()->getHeaderLine('Content-Type')) {
                             $apiProblem = ApiProblem::fromJson((string) $e->getResponse()->getBody());
-                            throw new ApiProblemException($apiProblem, $e->getRequest(), $e->getResponse(), $e);
+                            throw new ApiProblemResponse($apiProblem, $e->getRequest(), $e->getResponse(), $e);
                         } else {
-                            throw new ResponseException($e->getMessage(), $e->getRequest(), $e->getResponse(), $e);
+                            throw new BadResponse($e->getMessage(), $e->getRequest(), $e->getResponse(), $e);
                         }
                     } elseif ($e instanceof RequestException) {
-                        throw new NetworkException($e->getMessage(), $e->getRequest(), $e);
+                        throw new NetworkProblem($e->getMessage(), $e->getRequest(), $e);
                     }
 
                     throw new ApiException($e->getMessage(), $e);

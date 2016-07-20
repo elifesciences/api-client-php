@@ -6,7 +6,7 @@ use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class ResponseException extends HttpException
+class BadResponse extends HttpProblem
 {
     private $response;
 

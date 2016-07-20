@@ -2,30 +2,31 @@
 
 namespace spec\eLife\ApiSdk\Exception;
 
-use eLife\ApiSdk\Exception\HttpException;
+use Crell\ApiProblem\ApiProblem;
+use eLife\ApiSdk\Exception\BadResponse;
 use Exception;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PhpSpec\ObjectBehavior;
 
-final class ResponseExceptionSpec extends ObjectBehavior
+final class ApiProblemResponseSpec extends ObjectBehavior
 {
-    private $message;
+    private $apiProblem;
     private $request;
     private $response;
 
     public function let()
     {
-        $this->message = 'foo';
+        $this->apiProblem = new ApiProblem();
         $this->request = new Request(200, '/');
         $this->response = new Response();
 
-        $this->beConstructedWith($this->message, $this->request, $this->response);
+        $this->beConstructedWith($this->apiProblem, $this->request, $this->response);
     }
 
-    public function it_has_a_message()
+    public function it_has_an_api_problem()
     {
-        $this->getMessage()->shouldBe($this->message);
+        $this->getApiProblem()->shouldBeLike($this->apiProblem);
     }
 
     public function it_has_a_request()
@@ -45,13 +46,13 @@ final class ResponseExceptionSpec extends ObjectBehavior
 
     public function it_can_have_a_previous_exception(Exception $previous)
     {
-        $this->beConstructedWith($this->message, $this->request, $this->response, $previous);
+        $this->beConstructedWith($this->apiProblem, $this->request, $this->response, $previous);
 
         $this->getPrevious()->shouldBeLike($previous);
     }
 
-    public function it_is_a_http_exception()
+    public function it_is_a_problem_response()
     {
-        $this->shouldHaveType(HttpException::class);
+        $this->shouldHaveType(BadResponse::class);
     }
 }
