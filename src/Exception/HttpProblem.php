@@ -5,7 +5,7 @@ namespace eLife\ApiSdk\Exception;
 use Exception;
 use Psr\Http\Message\RequestInterface;
 
-abstract class HttpException extends ApiException
+abstract class HttpProblem extends ApiException
 {
     private $request;
 

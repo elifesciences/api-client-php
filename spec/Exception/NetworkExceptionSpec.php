@@ -2,7 +2,7 @@
 
 namespace spec\eLife\ApiSdk\Exception;
 
-use eLife\ApiSdk\Exception\HttpException;
+use eLife\ApiSdk\Exception\HttpProblem;
 use Exception;
 use GuzzleHttp\Psr7\Request;
 use PhpSpec\ObjectBehavior;
@@ -44,6 +44,6 @@ final class NetworkExceptionSpec extends ObjectBehavior
 
     public function it_is_a_http_exception()
     {
-        $this->shouldHaveType(HttpException::class);
+        $this->shouldHaveType(HttpProblem::class);
     }
 }
