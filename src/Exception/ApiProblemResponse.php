@@ -7,7 +7,7 @@ use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class ApiProblemException extends ResponseException
+class ApiProblemResponse extends ResponseException
 {
     private $apiProblem;
 

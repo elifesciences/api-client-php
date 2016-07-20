@@ -9,7 +9,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PhpSpec\ObjectBehavior;
 
-final class ApiProblemExceptionSpec extends ObjectBehavior
+final class ApiProblemResponseSpec extends ObjectBehavior
 {
     private $apiProblem;
     private $request;

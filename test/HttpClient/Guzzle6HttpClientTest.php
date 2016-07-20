@@ -4,7 +4,7 @@ namespace eLife\ApiSdk\HttpClient;
 
 use Crell\ApiProblem\ApiProblem;
 use eLife\ApiSdk\Exception\ApiException;
-use eLife\ApiSdk\Exception\ApiProblemException;
+use eLife\ApiSdk\Exception\ApiProblemResponse;
 use eLife\ApiSdk\Exception\NetworkException;
 use eLife\ApiSdk\Exception\ResponseException;
 use eLife\ApiSdk\Result\HttpResult;
@@ -60,7 +60,7 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
 
         $client = new Guzzle6HttpClient($this->guzzle);
 
-        $this->expectException(ApiProblemException::class);
+        $this->expectException(ApiProblemResponse::class);
 
         $client->send($request)->wait();
     }
