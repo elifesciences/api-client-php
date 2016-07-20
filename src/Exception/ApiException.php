@@ -5,6 +5,9 @@ namespace eLife\ApiSdk\Exception;
 use Exception;
 use RuntimeException;
 
+/**
+ * @SuppressWarnings(ForbiddenExceptionSuffix)
+ */
 class ApiException extends RuntimeException
 {
     public function __construct(string $message, Exception $previous = null)
