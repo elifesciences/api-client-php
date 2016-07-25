@@ -68,6 +68,23 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_throws_response_exceptions_on_broken_api_problems()
+    {
+        $request = new Request('GET', 'foo');
+        $response = new Response(404, ['Content-Type' => 'application/problem+json'], 'foo bar baz');
+
+        $this->mock->append($response);
+
+        $client = new Guzzle6HttpClient($this->guzzle);
+
+        $this->expectException(BadResponse::class);
+
+        $client->send($request)->wait();
+    }
+
+    /**
+     * @test
+     */
     public function it_throws_response_exceptions()
     {
         $request = new Request('GET', 'foo');

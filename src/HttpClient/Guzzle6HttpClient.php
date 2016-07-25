@@ -3,6 +3,7 @@
 namespace eLife\ApiSdk\HttpClient;
 
 use Crell\ApiProblem\ApiProblem;
+use Crell\ApiProblem\JsonParseException;
 use eLife\ApiSdk\Exception\ApiException;
 use eLife\ApiSdk\Exception\ApiProblemResponse;
 use eLife\ApiSdk\Exception\BadResponse;
@@ -37,7 +38,11 @@ final class Guzzle6HttpClient implements HttpClient
                 function (Throwable $e) {
                     if ($e instanceof BadResponseException) {
                         if ('application/problem+json' === $e->getResponse()->getHeaderLine('Content-Type')) {
-                            $apiProblem = ApiProblem::fromJson((string) $e->getResponse()->getBody());
+                            try {
+                                $apiProblem = ApiProblem::fromJson((string) $e->getResponse()->getBody());
+                            } catch (JsonParseException $jsonE) {
+                                throw new BadResponse($e->getMessage(), $e->getRequest(), $e->getResponse(), $e);
+                            }
                             throw new ApiProblemResponse($apiProblem, $e->getRequest(), $e->getResponse(), $e);
                         } else {
                             throw new BadResponse($e->getMessage(), $e->getRequest(), $e->getResponse(), $e);
