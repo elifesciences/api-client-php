@@ -3,23 +3,22 @@
 namespace eLife\ApiSdk\ApiClient;
 
 use eLife\ApiSdk\ApiClient;
-use eLife\ApiSdk\MediaType;
 use GuzzleHttp\Promise\PromiseInterface;
 
 final class PeopleClient
 {
+    const TYPE_PERSON = 'application/vnd.elife.person+json';
+    const TYPE_PERSON_LIST = 'application/vnd.elife.person-list+json';
+
     use ApiClient;
 
-    public function getPerson(int $version, string $id) : PromiseInterface
+    public function getPerson(array $headers, string $id) : PromiseInterface
     {
-        return $this->getRequest(
-            'people/'.$id,
-            new MediaType('application/vnd.elife.person+json', $version)
-        );
+        return $this->getRequest('people/'.$id, $headers);
     }
 
     public function listPeople(
-        int $version,
+        array $headers = [],
         int $page = 1,
         int $perPage = 20,
         bool $descendingOrder = true,
@@ -31,7 +30,7 @@ final class PeopleClient
 
         return $this->getRequest(
             'people?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery.$typeQuery,
-            new MediaType('application/vnd.elife.person-list+json', $version)
+            $headers
         );
     }
 }

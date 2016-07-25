@@ -3,18 +3,17 @@
 namespace eLife\ApiSdk\ApiClient;
 
 use eLife\ApiSdk\ApiClient;
-use eLife\ApiSdk\MediaType;
 use GuzzleHttp\Promise\PromiseInterface;
 
 final class MediumClient
 {
+    const TYPE_MEDIUM_ARTICLE = 'application/vnd.elife.medium-article+json';
+    const TYPE_MEDIUM_ARTICLE_LIST = 'application/vnd.elife.medium-article-list+json';
+
     use ApiClient;
 
-    public function listArticles(int $version) : PromiseInterface
+    public function listArticles(array $headers = []) : PromiseInterface
     {
-        return $this->getRequest(
-            'medium-articles',
-            new MediaType('application/vnd.elife.medium-article-list+json', $version)
-        );
+        return $this->getRequest('medium-articles', $headers);
     }
 }

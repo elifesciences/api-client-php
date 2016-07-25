@@ -3,30 +3,32 @@
 namespace eLife\ApiSdk\ApiClient;
 
 use eLife\ApiSdk\ApiClient;
-use eLife\ApiSdk\MediaType;
 use GuzzleHttp\Promise\PromiseInterface;
 
 final class LabsClient
 {
+    const TYPE_EXPERIMENT = 'application/vnd.elife.labs-experiment+json';
+    const TYPE_EXPERIMENT_LIST = 'application/vnd.elife.labs-experiment-list+json';
+
     use ApiClient;
 
-    public function getExperiment(int $version, int $number) : PromiseInterface
+    public function getExperiment(array $headers, int $number) : PromiseInterface
     {
         return $this->getRequest(
             'labs-experiments/'.$number,
-            new MediaType('application/vnd.elife.labs-experiment+json', $version)
+            $headers
         );
     }
 
     public function listExperiments(
-        int $version,
+        array $headers = [],
         int $page = 1,
         int $perPage = 20,
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
             'labs-experiments?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc'),
-            new MediaType('application/vnd.elife.labs-experiment-list+json', $version)
+            $headers
         );
     }
 }

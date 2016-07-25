@@ -17,19 +17,22 @@ final class SearchClientSpec extends ObjectBehavior
     {
         $this->httpClient = $httpClient;
 
-        $this->beConstructedWith($httpClient);
+        $this->beConstructedWith($httpClient, ['X-Foo' => 'bar']);
     }
 
     public function it_queries()
     {
         $request = new Request('GET',
             'search?for=foo&page=1&per-page=20&sort=date&order=desc&subject[]=cell-biology&type[]=research-article',
-            ['Accept' => 'application/vnd.elife.search+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.search+json; version=2']);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.search+json',
             2), ['foo' => ['bar', 'baz']]));
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->query(2, 'foo', 1, 20, 'date', true, ['cell-biology'], ['research-article'])->shouldBeLike($response);
+        $this->query((['Accept' => 'application/vnd.elife.search+json; version=2']), 'foo', 1, 20, 'date', true,
+            ['cell-biology'], ['research-article'])
+            ->shouldBeLike($response)
+        ;
     }
 }

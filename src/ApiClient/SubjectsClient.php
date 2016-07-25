@@ -3,30 +3,29 @@
 namespace eLife\ApiSdk\ApiClient;
 
 use eLife\ApiSdk\ApiClient;
-use eLife\ApiSdk\MediaType;
 use GuzzleHttp\Promise\PromiseInterface;
 
 final class SubjectsClient
 {
+    const TYPE_SUBJECT = 'application/vnd.elife.subject+json';
+    const TYPE_SUBJECT_LIST = 'application/vnd.elife.subject-list+json';
+
     use ApiClient;
 
-    public function getSubject(int $version, string $id) : PromiseInterface
+    public function getSubject(array $headers, string $id) : PromiseInterface
     {
-        return $this->getRequest(
-            'subjects/'.$id,
-            new MediaType('application/vnd.elife.subject+json', $version)
-        );
+        return $this->getRequest('subjects/'.$id, $headers);
     }
 
     public function listSubjects(
-        int $version,
+        array $headers = [],
         int $page = 1,
         int $perPage = 20,
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
             'subjects?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc'),
-            new MediaType('application/vnd.elife.subject-list+json', $version)
+            $headers
         );
     }
 }

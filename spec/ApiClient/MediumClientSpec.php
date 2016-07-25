@@ -17,18 +17,20 @@ final class MediumClientSpec extends ObjectBehavior
     {
         $this->httpClient = $httpClient;
 
-        $this->beConstructedWith($httpClient);
+        $this->beConstructedWith($httpClient, ['X-Foo' => 'bar']);
     }
 
     public function it_lists_medium_articles()
     {
         $request = new Request('GET', 'medium-articles',
-            ['Accept' => 'application/vnd.elife.medium-article-list+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.medium-article-list+json; version=2']);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.medium-article-list+json',
             2), ['foo' => ['bar', 'baz']]));
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->listArticles(2)->shouldBeLike($response);
+        $this->listArticles(['Accept' => 'application/vnd.elife.medium-article-list+json; version=2'])
+            ->shouldBeLike($response)
+        ;
     }
 }

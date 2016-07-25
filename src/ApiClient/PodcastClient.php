@@ -3,23 +3,22 @@
 namespace eLife\ApiSdk\ApiClient;
 
 use eLife\ApiSdk\ApiClient;
-use eLife\ApiSdk\MediaType;
 use GuzzleHttp\Promise\PromiseInterface;
 
 final class PodcastClient
 {
+    const TYPE_PODCAST_EPISODE = 'application/vnd.elife.podcast-episode+json';
+    const TYPE_PODCAST_EPISODE_LIST = 'application/vnd.elife.podcast-episode-list+json';
+
     use ApiClient;
 
-    public function getEpisode(int $version, int $number) : PromiseInterface
+    public function getEpisode(array $headers, int $number) : PromiseInterface
     {
-        return $this->getRequest(
-            'podcast-episodes/'.$number,
-            new MediaType('application/vnd.elife.podcast-episode+json', $version)
-        );
+        return $this->getRequest('podcast-episodes/'.$number, $headers);
     }
 
     public function listEpisodes(
-        int $version,
+        array $headers = [],
         int $page = 1,
         int $perPage = 20,
         bool $descendingOrder = true,
@@ -29,7 +28,7 @@ final class PodcastClient
 
         return $this->getRequest(
             'podcast-episodes?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery,
-            new MediaType('application/vnd.elife.podcast-episode-list+json', $version)
+            $headers
         );
     }
 }
