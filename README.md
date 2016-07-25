@@ -22,7 +22,9 @@ Usage
 
 The `eLife\ApiSdk\ApiClient` namespace provides separate clients for each part of the eLife API.
 
-Each method on an API client represents an endpoint. The method arguments are the arguments that the endpoint accepts, though the first argument is *always* the version of the JSON response that you will accept.
+Each method on an API client represents an endpoint.
+
+You can pass default headers to an API client, and/or to each API client method. You should provide an `Accept` header stating which versions you support.
 
 API clients always return instances of `GuzzleHttp\Promise\PromiseInterface`, which wrap instances of `eLife\ApiSdk\Result`, which in turn wrap the JSON response.
 
@@ -35,13 +37,14 @@ To list the Labs Experiment numbers that appear on the first page of the endpoin
 ```php
 use eLife\ApiSdk\ApiClient\LabsClient;
 use eLife\ApiSdk\HttpClient\Guzzle6HttpClient;
+use eLife\ApiSdk\MediaType;
 use GuzzleHttp\Client as Guzzle;
 
 $guzzle = new Guzzle(['base_uri' => 'https://api.elifesciences.org/']);
 $httpClient = new Guzzle6HttpClient($guzzle);
 $labsClient = new LabsClient($httpClient);
 
-var_dump($labsClient->listExperiments(1)->wait()->search('items[*].number'));
+var_dump($labsClient->listExperiments(['Accept' => new MediaType(LabsClient::TYPE_EXPERIMENT_LIST, 1)])->wait()->search('items[*].number'));
 ```
 
 ### Deprecation warnings

@@ -9,44 +9,50 @@ use Psr\Http\Message\StreamInterface;
 trait ApiClient
 {
     private $httpClient;
+    private $headers;
 
-    public function __construct(HttpClient $httpClient)
+    public function __construct(HttpClient $httpClient, array $headers = [])
     {
         $this->httpClient = $httpClient;
+        $this->headers = $headers;
     }
 
-    final protected function deleteRequest(string $uri, MediaType $accept) : PromiseInterface
+    final protected function deleteRequest(string $uri, array $headers) : PromiseInterface
     {
-        $request = new Request('DELETE', $uri, ['Accept' => $accept]);
+        $request = new Request('DELETE', $uri, array_merge($this->headers, $headers));
 
         return $this->httpClient->send($request);
     }
 
-    final protected function getRequest(string $uri, MediaType $accept) : PromiseInterface
+    final protected function getRequest(string $uri, array $headers) : PromiseInterface
     {
-        $request = new Request('GET', $uri, ['Accept' => $accept]);
+        $request = new Request('GET', $uri, array_merge($this->headers, $headers));
 
         return $this->httpClient->send($request);
     }
 
     final protected function postRequest(
         string $uri,
-        MediaType $accept,
+        array $headers,
         MediaType $contentType,
         StreamInterface $content
     ) : PromiseInterface {
-        $request = new Request('DELETE', $uri, ['Accept' => $accept, 'Content-Type' => $contentType], $content);
+        $headers = array_merge($this->headers, $headers, ['Content-Type' => $contentType]);
+
+        $request = new Request('DELETE', $uri, $headers, $content);
 
         return $this->httpClient->send($request);
     }
 
     final protected function putRequest(
         string $uri,
-        MediaType $accept,
+        array $headers,
         MediaType $contentType,
         StreamInterface $content
     ) : PromiseInterface {
-        $request = new Request('PUT', $uri, ['Accept' => $accept, 'Content-Type' => $contentType], $content);
+        $headers = array_merge($this->headers, $headers, ['Content-Type' => $contentType]);
+
+        $request = new Request('PUT', $uri, $headers, $content);
 
         return $this->httpClient->send($request);
     }

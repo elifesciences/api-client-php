@@ -17,30 +17,34 @@ final class SubjectsClientSpec extends ObjectBehavior
     {
         $this->httpClient = $httpClient;
 
-        $this->beConstructedWith($httpClient);
+        $this->beConstructedWith($httpClient, ['X-Foo' => 'bar']);
     }
 
     public function it_gets_an_experiment()
     {
         $request = new Request('GET', 'subjects/cell-biology',
-            ['Accept' => 'application/vnd.elife.subject+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.subject+json; version=2']);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.subject+json',
             2), ['foo' => ['bar', 'baz']]));
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->getSubject(2, 'cell-biology')->shouldBeLike($response);
+        $this->getSubject(['Accept' => 'application/vnd.elife.subject+json; version=2'], 'cell-biology')
+            ->shouldBeLike($response)
+        ;
     }
 
     public function it_lists_subjects()
     {
         $request = new Request('GET', 'subjects?page=1&per-page=20&order=desc',
-            ['Accept' => 'application/vnd.elife.subject-list+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.subject-list+json; version=2']);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.subject-list+json',
             2), ['foo' => ['bar', 'baz']]));
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->listSubjects(2)->shouldBeLike($response);
+        $this->listSubjects(['Accept' => 'application/vnd.elife.subject-list+json; version=2'])
+            ->shouldBeLike($response)
+        ;
     }
 }
