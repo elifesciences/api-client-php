@@ -22,7 +22,7 @@ final class EventsClientSpec extends ObjectBehavior
 
     public function it_gets_an_event()
     {
-        $request = new Request('GET', 'event/3',
+        $request = new Request('GET', 'events/3',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.event+json; version=2']);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.event+json',
             2), ['foo' => ['bar', 'baz']]));
