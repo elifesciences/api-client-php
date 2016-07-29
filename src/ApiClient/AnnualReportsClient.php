@@ -7,9 +7,15 @@ use GuzzleHttp\Promise\PromiseInterface;
 
 final class AnnualReportsClient
 {
+    const TYPE_ANNUAL_REPORT = 'application/vnd.elife.annual-report+json';
     const TYPE_ANNUAL_REPORT_LIST = 'application/vnd.elife.annual-report-list+json';
 
     use ApiClient;
+
+    public function getReport(array $headers, int $year) : PromiseInterface
+    {
+        return $this->getRequest('annual-reports/'.$year, $headers);
+    }
 
     public function listReports(
         array $headers = [],
