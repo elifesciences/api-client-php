@@ -7,6 +7,8 @@ use GuzzleHttp\Promise\PromiseInterface;
 
 final class SearchClient
 {
+    const TYPE_SEARCH = 'application/vnd.elife.search+json';
+
     use ApiClient;
 
     public function query(
