@@ -5,7 +5,7 @@
          colors="true" bootstrap="vendor/autoload.php">
 
     <testsuites>
-        <testsuite name="eLife Sciences API SDK tests">
+        <testsuite name="eLife Sciences API client">
             <directory>./test</directory>
         </testsuite>
     </testsuites>

@@ -1,9 +1,9 @@
 <?php
 
-namespace eLife\ApiSdk\Result;
+namespace eLife\ApiClient\Result;
 
-use eLife\ApiSdk\MediaType;
-use eLife\ApiSdk\Result;
+use eLife\ApiClient\MediaType;
+use eLife\ApiClient\Result;
 use InvalidArgumentException;
 use Iterator;
 use IteratorAggregate;

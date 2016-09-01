@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\eLife\ApiSdk\Exception;
+namespace spec\eLife\ApiClient\Exception;
 
-use eLife\ApiSdk\Exception\HttpProblem;
+use eLife\ApiClient\Exception\HttpProblem;
 use Exception;
 use GuzzleHttp\Psr7\Request;
 use PhpSpec\ObjectBehavior;

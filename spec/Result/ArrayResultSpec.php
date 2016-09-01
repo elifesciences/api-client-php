@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\eLife\ApiSdk\Result;
+namespace spec\eLife\ApiClient\Result;
 
 use ArrayAccess;
 use ArrayIterator;
 use BadMethodCallException;
 use Countable;
-use eLife\ApiSdk\MediaType;
+use eLife\ApiClient\MediaType;
 use IteratorAggregate;
 use PhpSpec\ObjectBehavior;
 

@@ -1,4 +1,4 @@
 suites:
-    api-sdk:
-        namespace: eLife\ApiSdk
-        psr4_prefix: eLife\ApiSdk
+    api-client:
+        namespace: eLife\ApiClient
+        psr4_prefix: eLife\ApiClient

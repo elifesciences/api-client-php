@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\eLife\ApiSdk\HttpClient;
+namespace spec\eLife\ApiClient\HttpClient;
 
-use eLife\ApiSdk\HttpClient;
-use eLife\ApiSdk\Result\HttpResult;
+use eLife\ApiClient\HttpClient;
+use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;

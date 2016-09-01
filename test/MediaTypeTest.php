@@ -1,8 +1,8 @@
 <?php
 
-namespace test\eLife\ApiSdk;
+namespace test\eLife\ApiClient;
 
-use eLife\ApiSdk\MediaType;
+use eLife\ApiClient\MediaType;
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 use TypeError;

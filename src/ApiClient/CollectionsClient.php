@@ -1,8 +1,8 @@
 <?php
 
-namespace eLife\ApiSdk\ApiClient;
+namespace eLife\ApiClient\ApiClient;
 
-use eLife\ApiSdk\ApiClient;
+use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
 
 final class CollectionsClient

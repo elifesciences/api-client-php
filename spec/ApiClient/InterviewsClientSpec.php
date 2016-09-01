@@ -1,10 +1,10 @@
 <?php
 
-namespace spec\eLife\ApiSdk\ApiClient;
+namespace spec\eLife\ApiClient\ApiClient;
 
-use eLife\ApiSdk\HttpClient;
-use eLife\ApiSdk\MediaType;
-use eLife\ApiSdk\Result\ArrayResult;
+use eLife\ApiClient\HttpClient;
+use eLife\ApiClient\MediaType;
+use eLife\ApiClient\Result\ArrayResult;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Request;
 use PhpSpec\ObjectBehavior;

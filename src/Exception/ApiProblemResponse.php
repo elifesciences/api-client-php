@@ -1,6 +1,6 @@
 <?php
 
-namespace eLife\ApiSdk\Exception;
+namespace eLife\ApiClient\Exception;
 
 use Crell\ApiProblem\ApiProblem;
 use Exception;

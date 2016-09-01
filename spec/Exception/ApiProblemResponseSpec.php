@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\eLife\ApiSdk\Exception;
+namespace spec\eLife\ApiClient\Exception;
 
 use Crell\ApiProblem\ApiProblem;
-use eLife\ApiSdk\Exception\BadResponse;
+use eLife\ApiClient\Exception\BadResponse;
 use Exception;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;

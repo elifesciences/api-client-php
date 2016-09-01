@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\eLife\ApiSdk\HttpClient;
+namespace spec\eLife\ApiClient\HttpClient;
 
-use eLife\ApiSdk\HttpClient;
+use eLife\ApiClient\HttpClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

@@ -1,6 +1,6 @@
 <?php
 
-namespace eLife\ApiSdk;
+namespace eLife\ApiClient;
 
 use Assert\Assertion;
 use function GuzzleHttp\Psr7\parse_header;

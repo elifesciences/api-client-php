@@ -1,6 +1,6 @@
 <?php
 
-namespace eLife\ApiSdk;
+namespace eLife\ApiClient;
 
 use ArrayAccess;
 

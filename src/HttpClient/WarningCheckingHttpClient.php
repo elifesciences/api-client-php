@@ -1,10 +1,10 @@
 <?php
 
-namespace eLife\ApiSdk\HttpClient;
+namespace eLife\ApiClient\HttpClient;
 
-use eLife\ApiSdk\HttpClient;
-use eLife\ApiSdk\Result;
-use eLife\ApiSdk\Result\HttpResult;
+use eLife\ApiClient\HttpClient;
+use eLife\ApiClient\Result;
+use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;

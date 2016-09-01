@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\eLife\ApiSdk;
+namespace spec\eLife\ApiClient;
 
 use PhpSpec\ObjectBehavior;
 

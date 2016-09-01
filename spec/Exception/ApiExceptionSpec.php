@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\eLife\ApiSdk\Exception;
+namespace spec\eLife\ApiClient\Exception;
 
 use Exception;
 use PhpSpec\ObjectBehavior;

@@ -1,13 +1,13 @@
 <?php
 
-namespace eLife\ApiSdk\HttpClient;
+namespace eLife\ApiClient\HttpClient;
 
 use Crell\ApiProblem\ApiProblem;
-use eLife\ApiSdk\Exception\ApiException;
-use eLife\ApiSdk\Exception\ApiProblemResponse;
-use eLife\ApiSdk\Exception\BadResponse;
-use eLife\ApiSdk\Exception\NetworkProblem;
-use eLife\ApiSdk\Result\HttpResult;
+use eLife\ApiClient\Exception\ApiException;
+use eLife\ApiClient\Exception\ApiProblemResponse;
+use eLife\ApiClient\Exception\BadResponse;
+use eLife\ApiClient\Exception\NetworkProblem;
+use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\TransferException;

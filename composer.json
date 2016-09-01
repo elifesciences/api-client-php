@@ -1,17 +1,17 @@
 {
-    "name": "elife/api-sdk",
-    "description": "eLife Sciences API SDK",
+    "name": "elife/api-client",
+    "description": "eLife Sciences API client",
     "type": "library",
     "license": "GPL-3.0+",
     "autoload": {
         "psr-4": {
-            "eLife\\ApiSdk\\": "./src"
+            "eLife\\ApiClient\\": "./src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "spec\\eLife\\ApiSdk\\": "./spec",
-            "tests\\eLife\\ApiSdk\\": "./test"
+            "spec\\eLife\\ApiClient\\": "./spec",
+            "test\\eLife\\ApiClient\\": "./test"
         }
     },
     "require": {

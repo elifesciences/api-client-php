@@ -1,6 +1,6 @@
 <?php
 
-namespace eLife\ApiSdk\Exception;
+namespace eLife\ApiClient\Exception;
 
 use Exception;
 use Psr\Http\Message\RequestInterface;

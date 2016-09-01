@@ -1,11 +1,11 @@
 <?php
 
-namespace eLife\ApiSdk\Result;
+namespace eLife\ApiClient\Result;
 
 use ArrayIterator;
 use BadMethodCallException;
-use eLife\ApiSdk\MediaType;
-use eLife\ApiSdk\Result;
+use eLife\ApiClient\MediaType;
+use eLife\ApiClient\Result;
 use Iterator;
 use IteratorAggregate;
 use function JmesPath\search;
