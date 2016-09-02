@@ -12,8 +12,14 @@ final class MediumClient
 
     use ApiClient;
 
-    public function listArticles(array $headers = []) : PromiseInterface
+    public function listArticles(
+        array $headers = [],
+        int $page = 1,
+        int $perPage = 20,
+        bool $descendingOrder = true
+    ) : PromiseInterface
     {
-        return $this->getRequest('medium-articles', $headers);
+        return $this->getRequest('medium-articles?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc'),
+            $headers);
     }
 }

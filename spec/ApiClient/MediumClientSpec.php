@@ -22,7 +22,7 @@ final class MediumClientSpec extends ObjectBehavior
 
     public function it_lists_medium_articles()
     {
-        $request = new Request('GET', 'medium-articles',
+        $request = new Request('GET', 'medium-articles?page=1&per-page=20&order=desc',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.medium-article-list+json; version=2']);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.medium-article-list+json',
             2), ['foo' => ['bar', 'baz']]));
