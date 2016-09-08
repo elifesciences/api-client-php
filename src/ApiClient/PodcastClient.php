@@ -22,9 +22,12 @@ final class PodcastClient
         int $page = 1,
         int $perPage = 20,
         bool $descendingOrder = true,
-        string $subject = null
+        array $subjects = []
     ) : PromiseInterface {
-        $subjectQuery = ('' !== trim($subject)) ? '&subject='.$subject : '';
+        $subjectQuery = '';
+        foreach ($subjects as $subject) {
+            $subjectQuery .= '&subject[]='.$subject;
+        }
 
         return $this->getRequest(
             'podcast-episodes?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery,

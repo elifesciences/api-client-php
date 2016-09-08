@@ -36,7 +36,7 @@ final class BlogClientSpec extends ObjectBehavior
 
     public function it_lists_articles()
     {
-        $request = new Request('GET', 'blog-articles?page=1&per-page=20&order=desc&subject=cell-biology',
+        $request = new Request('GET', 'blog-articles?page=1&per-page=20&order=desc&subject[]=cell-biology',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.blog-article-list+json; version=2']);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.blog-article-list+json',
             2), ['foo' => ['bar', 'baz']]));
@@ -45,7 +45,7 @@ final class BlogClientSpec extends ObjectBehavior
 
         $this->listArticles(['Accept' => 'application/vnd.elife.blog-article-list+json; version=2'],
             1, 20, true,
-            'cell-biology')->shouldBeLike($response)
+            ['cell-biology'])->shouldBeLike($response)
         ;
     }
 }
