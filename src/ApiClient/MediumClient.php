@@ -17,8 +17,7 @@ final class MediumClient
         int $page = 1,
         int $perPage = 20,
         bool $descendingOrder = true
-    ) : PromiseInterface
-    {
+    ) : PromiseInterface {
         return $this->getRequest('medium-articles?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc'),
             $headers);
     }
