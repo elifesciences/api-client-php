@@ -20,7 +20,7 @@ final class HttpResultSpec extends ObjectBehavior
     public function let()
     {
         $this->mediaType = MediaType::fromString('application/vnd.elife.labs-experiment+json; version=1');
-        $this->data = ['foo' => ['bar', 'baz']];
+        $this->data = ['one' => ['two', 'three']];
         $this->response = new Response(200, ['Content-Type' => (string) $this->mediaType], json_encode($this->data));
 
         $this->beConstructedThrough('fromResponse', [$this->response]);
@@ -43,7 +43,7 @@ final class HttpResultSpec extends ObjectBehavior
 
     public function it_can_be_searched()
     {
-        $this->search('foo[1]')->shouldBeLike(array_pop($this->data['foo']));
+        $this->search('one[1]')->shouldBeLike(array_pop($this->data['one']));
     }
 
     public function it_can_be_counted()
@@ -61,13 +61,13 @@ final class HttpResultSpec extends ObjectBehavior
     public function it_can_be_accessed_like_an_array()
     {
         $this->shouldHaveType(ArrayAccess::class);
-        $this->offsetExists('foo')->shouldBe(true);
-        $this->offsetGet('foo')->shouldBeLike($this->data['foo']);
+        $this->offsetExists('one')->shouldBe(true);
+        $this->offsetGet('one')->shouldBeLike($this->data['one']);
     }
 
     public function it_is_immutable()
     {
-        $this->shouldThrow(BadMethodCallException::class)->duringOffsetSet('foo', 'bar');
-        $this->shouldThrow(BadMethodCallException::class)->duringOffsetUnset('foo');
+        $this->shouldThrow(BadMethodCallException::class)->duringOffsetSet('one', 'two');
+        $this->shouldThrow(BadMethodCallException::class)->duringOffsetUnset('one');
     }
 }
