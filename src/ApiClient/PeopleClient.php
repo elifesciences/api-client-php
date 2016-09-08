@@ -22,10 +22,13 @@ final class PeopleClient
         int $page = 1,
         int $perPage = 20,
         bool $descendingOrder = true,
-        string $subject = null,
+        array $subjects = [],
         string $type = null
     ) : PromiseInterface {
-        $subjectQuery = ('' !== trim($subject)) ? '&subject='.$subject : '';
+        $subjectQuery = '';
+        foreach ($subjects as $subject) {
+            $subjectQuery .= '&subject[]='.$subject;
+        }
         $typeQuery = ('' !== trim($type)) ? '&type='.$type : '';
 
         return $this->getRequest(
