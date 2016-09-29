@@ -9,7 +9,7 @@ final class ArticlesClient
 {
     const TYPE_ARTICLE_POA = 'application/vnd.elife.article-poa+json';
     const TYPE_ARTICLE_VOR = 'application/vnd.elife.article-vor+json';
-    const TYPE_ARTICLE_LIST = 'application/vnd.elife.articles-list+json';
+    const TYPE_ARTICLE_LIST = 'application/vnd.elife.article-list+json';
     const TYPE_ARTICLE_HISTORY = 'application/vnd.elife.article-history+json';
 
     use ApiClient;
