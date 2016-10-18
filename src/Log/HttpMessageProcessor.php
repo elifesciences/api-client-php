@@ -7,7 +7,7 @@ use eLife\ApiClient\Exception\HttpProblem;
 use GuzzleHttp\Psr7;
 use Psr\Http\Message\MessageInterface;
 
-class HttpMessageProcessor
+final class HttpMessageProcessor
 {
     public function __invoke(array $record)
     {
