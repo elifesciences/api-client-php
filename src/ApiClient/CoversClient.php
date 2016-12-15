@@ -7,7 +7,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 
 final class CoversClient
 {
-    const TYPE_COVERS_LIST = 'application/vnd.elife.collection-list+json';
+    const TYPE_COVERS_LIST = 'application/vnd.elife.cover-list+json';
 
     use ApiClient;
 
