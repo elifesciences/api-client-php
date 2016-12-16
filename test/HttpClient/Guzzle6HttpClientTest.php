@@ -16,7 +16,6 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_TestCase;
-use RuntimeException;
 
 final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
 {
@@ -118,37 +117,5 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
         $this->expectException(ApiException::class);
 
         $this->client->send($request)->wait();
-    }
-
-    /**
-     * @test
-     */
-    public function it_allows_listeners_to_monitor_requests()
-    {
-        $request = new Request('GET', 'foo');
-        $response = new Response(200);
-        $this->mock->append($response);
-        $this->sentRequests = [];
-        $this->client->addRequestListener(function ($request) {
-            $this->sentRequests[] = $request;
-        });
-
-        $this->client->send($request);
-
-        $this->assertEquals([$request], $this->sentRequests);
-    }
-
-    /**
-     * @test
-     */
-    public function it_does_not_propagate_errors_of_listeners()
-    {
-        $request = new Request('GET', 'foo');
-
-        $this->client->addRequestListener(function ($request) {
-            throw new RuntimeException('mocked error in listener');
-        });
-
-        $this->client->send($request);
     }
 }
