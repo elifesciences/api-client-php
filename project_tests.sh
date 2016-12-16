@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# delete leftover files from other branches
+git clean -df
+
 : "${dependencies:?Need to set dependencies environment variable}"
 if [ "$dependencies" = "lowest" ]; then
     composer update --prefer-lowest --no-interaction
