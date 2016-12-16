@@ -22,7 +22,7 @@ final class BatchingHttpClient implements HttpClient
     public function send(RequestInterface $request) : PromiseInterface
     {
         $this->ifBatchIsFull(function () {
-            $this->cleanBatchList();
+            $this->filterResolvedRequests();
         });
         $this->ifBatchIsFull(function () {
             $this->waitOnBatch();
@@ -31,7 +31,7 @@ final class BatchingHttpClient implements HttpClient
         return $this->batch[] = $this->httpClient->send($request);
     }
 
-    private function cleanBatchList()
+    private function filterResolvedRequests()
     {
         $this->batch = array_filter($this->batch, function (PromiseInterface $promise) {
             return PromiseInterface::PENDING === $promise->getState();
