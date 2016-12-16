@@ -28,7 +28,8 @@
         "phpspec/phpspec": "^2.4",
         "phpspec/prophecy": "^1.5",
         "phpunit/phpunit": "^5.2",
-        "psr/log": "^1.0"
+        "psr/log": "^1.0",
+        "giorgiosironi/eris": "^0.8.0"
     },
     "suggest": {
         "guzzlehttp/guzzle": "^6.0, to use the Guzzle6HttpClient adapter",
