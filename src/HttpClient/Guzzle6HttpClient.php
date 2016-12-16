@@ -21,14 +21,22 @@ use Throwable;
 final class Guzzle6HttpClient implements HttpClient
 {
     private $client;
+    private $listeners = [];
 
     public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
 
+    public function addRequestListener(callable $listener)
+    {
+        $this->listeners[] = $listener; 
+    }
+
     public function send(RequestInterface $request) : PromiseInterface
     {
+        $this->notifyListeners($request);
+
         return $this->client->sendAsync($request)
             ->then(
                 function (ResponseInterface $response) {
@@ -54,5 +62,16 @@ final class Guzzle6HttpClient implements HttpClient
                     throw new ApiException($e->getMessage(), $e);
                 }
             );
+    }
+
+    private function notifyListeners($request)
+    {
+        foreach ($this->listeners as $listener) {
+            try {
+                $listener($request);
+            } catch (Throwable $e) {
+                error_log($e->getMessage().' at '.$e->getFile().':'.$e->getLine());
+            }
+        }
     }
 }
