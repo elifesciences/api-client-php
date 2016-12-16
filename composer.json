@@ -23,6 +23,7 @@
         "psr/http-message": "^1.0"
     },
     "require-dev": {
+        "giorgiosironi/eris": "^0.8",
         "guzzlehttp/guzzle": "^6.0",
         "mtdowling/jmespath.php": "^2.0",
         "phpspec/phpspec": "^2.4",
