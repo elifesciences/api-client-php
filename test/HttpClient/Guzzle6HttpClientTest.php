@@ -28,7 +28,6 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
 
         $this->mock = new MockHandler();
         $this->guzzle = new Client(['handler' => HandlerStack::create($this->mock)]);
-        $this->client = new Guzzle6HttpClient($this->guzzle);
     }
 
     /**
@@ -43,7 +42,9 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
 
         $this->mock->append($response);
 
-        $this->assertEquals($result, $this->client->send($request)->wait());
+        $client = new Guzzle6HttpClient($this->guzzle);
+
+        $this->assertEquals($result, $client->send($request)->wait());
     }
 
     /**
@@ -57,9 +58,11 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
 
         $this->mock->append($response);
 
+        $client = new Guzzle6HttpClient($this->guzzle);
+
         $this->expectException(ApiProblemResponse::class);
 
-        $this->client->send($request)->wait();
+        $client->send($request)->wait();
     }
 
     /**
@@ -72,9 +75,11 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
 
         $this->mock->append($response);
 
+        $client = new Guzzle6HttpClient($this->guzzle);
+
         $this->expectException(BadResponse::class);
 
-        $this->client->send($request)->wait();
+        $client->send($request)->wait();
     }
 
     /**
@@ -88,9 +93,11 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
 
         $this->mock->append($response);
 
+        $client = new Guzzle6HttpClient($this->guzzle);
+
         $this->expectException(BadResponse::class);
 
-        $this->client->send($request)->wait();
+        $client->send($request)->wait();
     }
 
     /**
@@ -101,9 +108,11 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
         $request = new Request('GET', 'foo');
         $this->mock->append(new RequestException('Problem', $request));
 
+        $client = new Guzzle6HttpClient($this->guzzle);
+
         $this->expectException(NetworkProblem::class);
 
-        $this->client->send($request)->wait();
+        $client->send($request)->wait();
     }
 
     /**
@@ -114,8 +123,10 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
         $request = new Request('GET', 'foo');
         $this->mock->append(new TransferException());
 
+        $client = new Guzzle6HttpClient($this->guzzle);
+
         $this->expectException(ApiException::class);
 
-        $this->client->send($request)->wait();
+        $client->send($request)->wait();
     }
 }
