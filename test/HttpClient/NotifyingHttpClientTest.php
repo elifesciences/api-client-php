@@ -19,7 +19,7 @@ final class NotifyingHttpClientTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->originalClient = $this->createMock(HttpClient::class);
+        $this->originalClient = $this->getMock(HttpClient::class);
         $this->client = new NotifyingHttpClient($this->originalClient);
     }
 
