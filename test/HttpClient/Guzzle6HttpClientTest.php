@@ -129,7 +129,7 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
         $response = new Response(200);
         $this->mock->append($response);
         $this->sentRequests = [];
-        $this->client->addRequestListener(function($request) {
+        $this->client->addRequestListener(function ($request) {
             $this->sentRequests[] = $request;
         });
 
@@ -145,8 +145,8 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
     {
         $request = new Request('GET', 'foo');
 
-        $this->client->addRequestListener(function($request) {
-            throw new RuntimeException("mocked error in listener");
+        $this->client->addRequestListener(function ($request) {
+            throw new RuntimeException('mocked error in listener');
         });
 
         $this->client->send($request);

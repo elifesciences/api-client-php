@@ -30,7 +30,7 @@ final class Guzzle6HttpClient implements HttpClient
 
     public function addRequestListener(callable $listener)
     {
-        $this->listeners[] = $listener; 
+        $this->listeners[] = $listener;
     }
 
     public function send(RequestInterface $request) : PromiseInterface
