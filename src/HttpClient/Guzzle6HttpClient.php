@@ -7,6 +7,7 @@ use Crell\ApiProblem\JsonParseException;
 use eLife\ApiClient\Exception\ApiException;
 use eLife\ApiClient\Exception\ApiProblemResponse;
 use eLife\ApiClient\Exception\BadResponse;
+use eLife\ApiClient\Exception\Missing;
 use eLife\ApiClient\Exception\NetworkProblem;
 use eLife\ApiClient\HttpClient;
 use eLife\ApiClient\Result\HttpResult;
@@ -44,6 +45,8 @@ final class Guzzle6HttpClient implements HttpClient
                                 throw new BadResponse($e->getMessage(), $e->getRequest(), $e->getResponse(), $e);
                             }
                             throw new ApiProblemResponse($apiProblem, $e->getRequest(), $e->getResponse(), $e);
+                        } else if ($e->getResponse()->getStatusCode() === 404) {
+                            throw new Missing($e->getMessage(), $e->getRequest(), $e->getResponse(), $e);
                         } else {
                             throw new BadResponse($e->getMessage(), $e->getRequest(), $e->getResponse(), $e);
                         }

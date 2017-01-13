@@ -6,6 +6,7 @@ use Crell\ApiProblem\ApiProblem;
 use eLife\ApiClient\Exception\ApiException;
 use eLife\ApiClient\Exception\ApiProblemResponse;
 use eLife\ApiClient\Exception\BadResponse;
+use eLife\ApiClient\Exception\Missing;
 use eLife\ApiClient\Exception\NetworkProblem;
 use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\Client;
@@ -71,7 +72,7 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
     public function it_throws_response_exceptions_on_broken_api_problems()
     {
         $request = new Request('GET', 'foo');
-        $response = new Response(404, ['Content-Type' => 'application/problem+json'], 'foo bar baz');
+        $response = new Response(403, ['Content-Type' => 'application/problem+json'], 'foo bar baz');
 
         $this->mock->append($response);
 
@@ -89,13 +90,30 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
     {
         $request = new Request('GET', 'foo');
         $apiProblem = new ApiProblem('Problem');
-        $response = new Response(404, ['Content-Type' => 'foo/bar'], $apiProblem->asJson());
+        $response = new Response(403, ['Content-Type' => 'foo/bar'], $apiProblem->asJson());
 
         $this->mock->append($response);
 
         $client = new Guzzle6HttpClient($this->guzzle);
 
         $this->expectException(BadResponse::class);
+
+        $client->send($request)->wait();
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_missing_exceptions()
+    {
+        $request = new Request('GET', 'foo');
+        $response = new Response(404);
+
+        $this->mock->append($response);
+
+        $client = new Guzzle6HttpClient($this->guzzle);
+
+        $this->expectException(Missing::class);
 
         $client->send($request)->wait();
     }
