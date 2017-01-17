@@ -13,13 +13,17 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_TestCase;
+use Traversable;
+use function GuzzleHttp\default_user_agent;
 
 final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
 {
     private $mock;
+    private $history;
     private $guzzle;
 
     protected function setUp()
@@ -27,7 +31,12 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->mock = new MockHandler();
-        $this->guzzle = new Client(['handler' => HandlerStack::create($this->mock)]);
+        $this->history = [];
+
+        $stack = HandlerStack::create($this->mock);
+        $stack->push(Middleware::history($this->history));
+
+        $this->guzzle = new Client(['handler' => $stack]);
     }
 
     /**
@@ -45,6 +54,31 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
         $client = new Guzzle6HttpClient($this->guzzle);
 
         $this->assertEquals($result, $client->send($request)->wait());
+    }
+
+    /**
+     * @test
+     * @dataProvider userAgentProvider
+     */
+    public function it_sets_a_user_agent(string $existing = null, string $expected)
+    {
+        $request = new Request('GET', 'foo', ['User-Agent' => $existing]);
+        $response = new Response(200, ['Content-Type' => 'application/vnd.elife.labs-experiment+json; version=1'],
+            json_encode(['foo' => ['bar', 'baz']]));
+
+        $this->mock->append($response);
+
+        $client = new Guzzle6HttpClient($this->guzzle);
+
+        $client->send($request)->wait();
+
+        $this->assertSame($expected, $this->history[0]['request']->getHeaderLine('User-Agent'));
+    }
+
+    public function userAgentProvider() : Traversable
+    {
+        yield 'sets when empty' => [null, default_user_agent()];
+        yield 'appends to existing' => ['bar', sprintf('bar %s', default_user_agent())];
     }
 
     /**

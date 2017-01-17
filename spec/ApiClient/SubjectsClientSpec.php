@@ -5,6 +5,7 @@ namespace spec\eLife\ApiClient\ApiClient;
 use eLife\ApiClient\HttpClient;
 use eLife\ApiClient\MediaType;
 use eLife\ApiClient\Result\ArrayResult;
+use eLife\ApiClient\Version;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Request;
 use PhpSpec\ObjectBehavior;
@@ -23,7 +24,7 @@ final class SubjectsClientSpec extends ObjectBehavior
     public function it_gets_an_experiment()
     {
         $request = new Request('GET', 'subjects/cell-biology',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.subject+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.subject+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.subject+json',
             2), ['foo' => ['bar', 'baz']]));
 
@@ -37,7 +38,7 @@ final class SubjectsClientSpec extends ObjectBehavior
     public function it_lists_subjects()
     {
         $request = new Request('GET', 'subjects?page=1&per-page=20&order=desc',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.subject-list+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.subject-list+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.subject-list+json',
             2), ['foo' => ['bar', 'baz']]));
 

@@ -5,6 +5,7 @@ namespace spec\eLife\ApiClient\ApiClient;
 use eLife\ApiClient\HttpClient;
 use eLife\ApiClient\MediaType;
 use eLife\ApiClient\Result\ArrayResult;
+use eLife\ApiClient\Version;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Request;
 use PhpSpec\ObjectBehavior;
@@ -23,7 +24,7 @@ final class LabsClientSpec extends ObjectBehavior
     public function it_gets_an_experiment()
     {
         $request = new Request('GET', 'labs-experiments/3',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.labs-experiment+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.labs-experiment+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.labs-experiment+json',
             2), ['foo' => ['bar', 'baz']]));
 
@@ -37,7 +38,7 @@ final class LabsClientSpec extends ObjectBehavior
     public function it_lists_experiments()
     {
         $request = new Request('GET', 'labs-experiments?page=1&per-page=20&order=desc',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.labs-experiment-list+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.labs-experiment-list+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.labs-experiment-list+json',
             2), ['foo' => ['bar', 'baz']]));
 
