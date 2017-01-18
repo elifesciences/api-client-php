@@ -24,9 +24,13 @@ final class Version
     private static function create()
     {
         $originalVersion = Versions::getVersion('elife/api-client');
-        list($version) = explode('@', $originalVersion);
+        list($version, $reference) = explode('@', $originalVersion);
         if (false !== strpos($version, 'dev')) {
-            $version = $originalVersion;
+            if (40 === strlen($reference)) {
+                $version = implode('@', [$version, substr($reference, 0, 7)]);
+            } else {
+                $version = $originalVersion;
+            }
         }
 
         self::$version = $version;
