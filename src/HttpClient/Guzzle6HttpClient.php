@@ -17,6 +17,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
+use function GuzzleHttp\default_user_agent;
 
 final class Guzzle6HttpClient implements HttpClient
 {
@@ -29,6 +30,8 @@ final class Guzzle6HttpClient implements HttpClient
 
     public function send(RequestInterface $request) : PromiseInterface
     {
+        $request = $request->withHeader('User-Agent', trim(($request->getHeader('User-Agent')[0] ?? '').' '.default_user_agent()));
+
         return $this->client->sendAsync($request)
             ->then(
                 function (ResponseInterface $response) {

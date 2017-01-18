@@ -5,6 +5,7 @@ namespace spec\eLife\ApiClient\ApiClient;
 use eLife\ApiClient\HttpClient;
 use eLife\ApiClient\MediaType;
 use eLife\ApiClient\Result\ArrayResult;
+use eLife\ApiClient\Version;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Request;
 use PhpSpec\ObjectBehavior;
@@ -23,7 +24,7 @@ final class EventsClientSpec extends ObjectBehavior
     public function it_gets_an_event()
     {
         $request = new Request('GET', 'events/3',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.event+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.event+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.event+json',
             2), ['foo' => ['bar', 'baz']]));
 
@@ -36,7 +37,7 @@ final class EventsClientSpec extends ObjectBehavior
     public function it_lists_events()
     {
         $request = new Request('GET', 'events?page=1&per-page=20&type=open&order=desc',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.event-list+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.event-list+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.event-list+json',
             2), ['foo' => ['bar', 'baz']]));
 

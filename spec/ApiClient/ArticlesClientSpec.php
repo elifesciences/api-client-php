@@ -5,8 +5,10 @@ namespace spec\eLife\ApiClient\ApiClient;
 use eLife\ApiClient\HttpClient;
 use eLife\ApiClient\MediaType;
 use eLife\ApiClient\Result\ArrayResult;
+use eLife\ApiClient\Version;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Request;
+use PackageVersions\Versions;
 use PhpSpec\ObjectBehavior;
 
 final class ArticlesClientSpec extends ObjectBehavior
@@ -23,7 +25,7 @@ final class ArticlesClientSpec extends ObjectBehavior
     public function it_gets_a_latest_version_for_an_article()
     {
         $request = new Request('GET', 'articles/3',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.article-poa+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.article-poa+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.article-poa+json',
             2), ['foo' => ['bar', 'baz']]));
 
@@ -37,7 +39,7 @@ final class ArticlesClientSpec extends ObjectBehavior
     public function it_gets_a_history_for_an_article()
     {
         $request = new Request('GET', 'articles/3/versions',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.article-history+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.article-history+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.article-history+json',
             2), ['foo' => ['bar', 'baz']]));
 
@@ -51,7 +53,7 @@ final class ArticlesClientSpec extends ObjectBehavior
     public function it_gets_a_version_for_an_article()
     {
         $request = new Request('GET', 'articles/3/versions/2',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.article-poa+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.article-poa+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.article-poa+json',
             2), ['foo' => ['bar', 'baz']]));
 
@@ -65,7 +67,7 @@ final class ArticlesClientSpec extends ObjectBehavior
     public function it_lists_articles()
     {
         $request = new Request('GET', 'articles?page=1&per-page=20&order=desc&subject[]=cell-biology',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.articles-list+json; version=2']);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.articles-list+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.articles-list+json',
             2), ['foo' => ['bar', 'baz']]));
 

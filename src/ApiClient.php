@@ -2,6 +2,7 @@
 
 namespace eLife\ApiClient;
 
+use eLife\ApiClient\HttpClient\UserAgentPrependingHttpClient;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\StreamInterface;
@@ -13,7 +14,7 @@ trait ApiClient
 
     public function __construct(HttpClient $httpClient, array $headers = [])
     {
-        $this->httpClient = $httpClient;
+        $this->httpClient = new UserAgentPrependingHttpClient($httpClient, 'eLifeApiClient/'.Version::get());
         $this->headers = $headers;
     }
 
