@@ -2,7 +2,7 @@
     "name": "elife/api-client",
     "description": "eLife Sciences API client",
     "type": "library",
-    "license": "GPL-3.0+",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "eLife\\ApiClient\\": "./src"
