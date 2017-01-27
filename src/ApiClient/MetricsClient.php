@@ -7,21 +7,14 @@ use GuzzleHttp\Promise\PromiseInterface;
 
 final class MetricsClient
 {
-    const TYPE_METRIC = 'application/vnd.elife.metric+json';
+    const TYPE_METRIC_CITATIONS = 'application/vnd.elife.metric-citations+json';
+    const TYPE_METRIC_TIME_PERIOD = 'application/vnd.elife.metric-time-period+json';
 
     use ApiClient;
 
-    public function citations(
-        array $headers,
-        string $type,
-        string $id,
-        string $by = 'month',
-        int $page = 1,
-        int $perPage = 20,
-        bool $descendingOrder = true
-    ) : PromiseInterface {
-        return $this->getRequest('metrics/'.$type.'/'.$id.'/citations?by='.$by.'&page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc'),
-            $headers);
+    public function citations(array $headers, string $type, string $id) : PromiseInterface
+    {
+        return $this->getRequest('metrics/'.$type.'/'.$id.'/citations', $headers);
     }
 
     public function downloads(

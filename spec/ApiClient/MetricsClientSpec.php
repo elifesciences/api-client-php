@@ -23,14 +23,40 @@ final class MetricsClientSpec extends ObjectBehavior
 
     public function it_gets_citations()
     {
-        $request = new Request('GET', 'metrics/article/01234/citations?by=month&page=1&per-page=20&order=desc',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.metric+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
-        $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.metric+json',
+        $request = new Request('GET', 'metrics/article/01234/citations',
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.metric-citations+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
+        $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.metric-citations+json',
             2), ['foo' => ['bar', 'baz']]));
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->citations(['Accept' => 'application/vnd.elife.metric+json; version=2'], 'article', '01234')
+        $this->citations(['Accept' => 'application/vnd.elife.metric-citations+json; version=2'], 'article', '01234')
+            ->shouldBeLike($response);
+    }
+
+    public function it_gets_downloads()
+    {
+        $request = new Request('GET', 'metrics/article/01234/downloads?by=month&page=1&per-page=20&order=desc',
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.metric-time-period+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
+        $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.metric-time-period+json',
+            2), ['foo' => ['bar', 'baz']]));
+
+        $this->httpClient->send($request)->willReturn($response);
+
+        $this->downloads(['Accept' => 'application/vnd.elife.metric-time-period+json; version=2'], 'article', '01234')
+            ->shouldBeLike($response);
+    }
+
+    public function it_gets_page_views()
+    {
+        $request = new Request('GET', 'metrics/article/01234/page-views?by=month&page=1&per-page=20&order=desc',
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.metric-time-period+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
+        $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.metric-time-period+json',
+            2), ['foo' => ['bar', 'baz']]));
+
+        $this->httpClient->send($request)->willReturn($response);
+
+        $this->pageViews(['Accept' => 'application/vnd.elife.metric-time-period+json; version=2'], 'article', '01234')
             ->shouldBeLike($response);
     }
 }
