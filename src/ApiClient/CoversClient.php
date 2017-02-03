@@ -16,6 +16,7 @@ final class CoversClient
         array $headers = [],
         int $page = 1,
         int $perPage = 20,
+        string $sort = 'date',
         bool $descendingOrder = true,
         DateTimeImmutable $starts = null,
         DateTimeImmutable $ends = null
@@ -24,7 +25,7 @@ final class CoversClient
         $endsQuery = $ends ? '&end-date='.$ends->format('Y-m-d') : '';
 
         return $this->getRequest(
-            'covers?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc').$startsQuery.$endsQuery,
+            'covers?page='.$page.'&per-page='.$perPage.'&sort='.$sort.'&order='.($descendingOrder ? 'desc' : 'asc').$startsQuery.$endsQuery,
             $headers
         );
     }
