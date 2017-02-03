@@ -2,6 +2,7 @@
 
 namespace eLife\ApiClient\ApiClient;
 
+use DateTimeImmutable;
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
 
@@ -19,7 +20,9 @@ final class SearchClient
         string $sort = 'relevance',
         bool $descendingOrder = true,
         array $subjects = [],
-        array $types = []
+        array $types = [],
+        DateTimeImmutable $starts = null,
+        DateTimeImmutable $ends = null
     ) : PromiseInterface {
         $subjectQuery = '';
         foreach ($subjects as $subject) {
@@ -29,9 +32,11 @@ final class SearchClient
         foreach ($types as $type) {
             $typeQuery .= '&type[]='.$type;
         }
+        $startsQuery = $starts ? '&start-date='.$starts->format('Y-m-d') : '';
+        $endsQuery = $ends ? '&end-date='.$ends->format('Y-m-d') : '';
 
         return $this->getRequest(
-            'search?for='.$query.'&page='.$page.'&per-page='.$perPage.'&sort='.$sort.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery.$typeQuery,
+            'search?for='.$query.'&page='.$page.'&per-page='.$perPage.'&sort='.$sort.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery.$typeQuery.$startsQuery.$endsQuery,
             $headers
         );
     }
