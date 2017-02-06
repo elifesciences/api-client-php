@@ -11,6 +11,7 @@ final class ArticlesClient
     const TYPE_ARTICLE_VOR = 'application/vnd.elife.article-vor+json';
     const TYPE_ARTICLE_LIST = 'application/vnd.elife.article-list+json';
     const TYPE_ARTICLE_HISTORY = 'application/vnd.elife.article-history+json';
+    const TYPE_ARTICLE_RELATED = 'application/vnd.elife.article-related+json';
 
     use ApiClient;
 
@@ -22,6 +23,11 @@ final class ArticlesClient
     public function getArticleHistory(array $headers, string $number) : PromiseInterface
     {
         return $this->getRequest('articles/'.$number.'/versions', $headers);
+    }
+
+    public function getRelatedArticles(array $headers, string $number) : PromiseInterface
+    {
+        return $this->getRequest('articles/'.$number.'/related', $headers);
     }
 
     public function getArticleVersion(array $headers, string $number, int $version) : PromiseInterface
