@@ -50,6 +50,19 @@ final class ArticlesClientSpec extends ObjectBehavior
         ;
     }
 
+    public function it_gets_related_articles_for_an_article()
+    {
+        $request = new Request('GET', 'articles/3/related',
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.article-related+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
+        $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.article-related+json',
+            2), ['foo' => ['bar', 'baz']]));
+
+        $this->httpClient->send($request)->willReturn($response);
+
+        $this->getRelatedArticles(['Accept' => 'application/vnd.elife.article-related+json; version=2'], '3')
+            ->shouldBeLike($response);
+    }
+
     public function it_gets_a_version_for_an_article()
     {
         $request = new Request('GET', 'articles/3/versions/2',
