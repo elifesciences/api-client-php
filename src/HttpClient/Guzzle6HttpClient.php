@@ -38,7 +38,10 @@ final class Guzzle6HttpClient implements HttpClient
                     return HttpResult::fromResponse($response);
                 }
             )->otherwise(
-                function (Throwable $e) {
+                function ($e) {
+                    if (is_string($e)) {
+                        throw new ApiException($e);
+                    }
                     if ($e instanceof BadResponseException) {
                         if ('application/problem+json' === $e->getResponse()->getHeaderLine('Content-Type')) {
                             try {
