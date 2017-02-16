@@ -21,6 +21,7 @@ final class SearchClient
         bool $descendingOrder = true,
         array $subjects = [],
         array $types = [],
+        string $useDate = 'default',
         DateTimeImmutable $starts = null,
         DateTimeImmutable $ends = null
     ) : PromiseInterface {
@@ -36,7 +37,7 @@ final class SearchClient
         $endsQuery = $ends ? '&end-date='.$ends->format('Y-m-d') : '';
 
         return $this->getRequest(
-            'search?for='.$query.'&page='.$page.'&per-page='.$perPage.'&sort='.$sort.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery.$typeQuery.$startsQuery.$endsQuery,
+            'search?for='.$query.'&page='.$page.'&per-page='.$perPage.'&sort='.$sort.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery.$typeQuery.'&use-date='.$useDate.$startsQuery.$endsQuery,
             $headers
         );
     }

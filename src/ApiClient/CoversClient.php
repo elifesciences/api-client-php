@@ -18,6 +18,7 @@ final class CoversClient
         int $perPage = 20,
         string $sort = 'date',
         bool $descendingOrder = true,
+        string $useDate = 'default',
         DateTimeImmutable $starts = null,
         DateTimeImmutable $ends = null
     ) : PromiseInterface {
@@ -25,7 +26,7 @@ final class CoversClient
         $endsQuery = $ends ? '&end-date='.$ends->format('Y-m-d') : '';
 
         return $this->getRequest(
-            'covers?page='.$page.'&per-page='.$perPage.'&sort='.$sort.'&order='.($descendingOrder ? 'desc' : 'asc').$startsQuery.$endsQuery,
+            'covers?page='.$page.'&per-page='.$perPage.'&sort='.$sort.'&order='.($descendingOrder ? 'desc' : 'asc').'&use-date='.$useDate.$startsQuery.$endsQuery,
             $headers
         );
     }
