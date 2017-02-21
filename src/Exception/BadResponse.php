@@ -2,9 +2,9 @@
 
 namespace eLife\ApiClient\Exception;
 
-use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
 
 class BadResponse extends HttpProblem
 {
@@ -14,7 +14,7 @@ class BadResponse extends HttpProblem
         string $message,
         RequestInterface $request,
         ResponseInterface $response,
-        Exception $previous = null
+        Throwable $previous = null
     ) {
         parent::__construct($message, $request, $previous);
 
