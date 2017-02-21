@@ -2,14 +2,14 @@
 
 namespace eLife\ApiClient\Exception;
 
-use Exception;
 use Psr\Http\Message\RequestInterface;
+use Throwable;
 
 abstract class HttpProblem extends ApiException
 {
     private $request;
 
-    public function __construct(string $message, RequestInterface $request, Exception $previous = null)
+    public function __construct(string $message, RequestInterface $request, Throwable $previous = null)
     {
         parent::__construct($message, $previous);
 

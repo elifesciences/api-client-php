@@ -3,9 +3,9 @@
 namespace eLife\ApiClient\Exception;
 
 use Crell\ApiProblem\ApiProblem;
-use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
 
 class ApiProblemResponse extends BadResponse
 {
@@ -15,7 +15,7 @@ class ApiProblemResponse extends BadResponse
         ApiProblem $apiProblem,
         RequestInterface $request,
         ResponseInterface $response,
-        Exception $previous = null
+        Throwable $previous = null
     ) {
         parent::__construct((string) $apiProblem->getTitle(), $request, $response, $previous);
 
