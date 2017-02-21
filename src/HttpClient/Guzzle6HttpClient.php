@@ -16,8 +16,8 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Throwable;
 use function GuzzleHttp\default_user_agent;
+use function GuzzleHttp\Promise\exception_for;
 
 final class Guzzle6HttpClient implements HttpClient
 {
@@ -38,7 +38,9 @@ final class Guzzle6HttpClient implements HttpClient
                     return HttpResult::fromResponse($response);
                 }
             )->otherwise(
-                function (Throwable $e) {
+                function ($reason) {
+                    $e = exception_for($reason);
+
                     if ($e instanceof BadResponseException) {
                         if ('application/problem+json' === $e->getResponse()->getHeaderLine('Content-Type')) {
                             try {

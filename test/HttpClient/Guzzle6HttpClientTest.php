@@ -14,6 +14,7 @@ use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Promise\RejectedPromise;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_TestCase;
@@ -156,6 +157,21 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
     {
         $request = new Request('GET', 'foo');
         $this->mock->append(new TransferException());
+
+        $client = new Guzzle6HttpClient($this->guzzle);
+
+        $this->expectException(ApiException::class);
+
+        $client->send($request)->wait();
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_api_exceptions_on_non_throwables()
+    {
+        $request = new Request('GET', 'foo');
+        $this->mock->append(new RejectedPromise('error'));
 
         $client = new Guzzle6HttpClient($this->guzzle);
 
