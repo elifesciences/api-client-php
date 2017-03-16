@@ -6,12 +6,14 @@ use Crell\ApiProblem\ApiProblem;
 use Crell\ApiProblem\JsonParseException;
 use eLife\ApiClient\Exception\ApiException;
 use eLife\ApiClient\Exception\ApiProblemResponse;
+use eLife\ApiClient\Exception\ApiTimeout;
 use eLife\ApiClient\Exception\BadResponse;
 use eLife\ApiClient\Exception\NetworkProblem;
 use eLife\ApiClient\HttpClient;
 use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
@@ -53,6 +55,10 @@ final class Guzzle6HttpClient implements HttpClient
                             throw new BadResponse($e->getMessage(), $e->getRequest(), $e->getResponse(), $e);
                         }
                     } elseif ($e instanceof RequestException) {
+                        if ($e instanceof ConnectException && CURLE_OPERATION_TIMEOUTED === ($e->getHandlerContext()['errno'] ?? null)) {
+                            throw new ApiTimeout($e->getMessage(), $e->getRequest(), $e);
+                        }
+
                         throw new NetworkProblem($e->getMessage(), $e->getRequest(), $e);
                     }
 
