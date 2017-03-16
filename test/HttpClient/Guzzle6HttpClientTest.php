@@ -5,10 +5,12 @@ namespace eLife\ApiClient\HttpClient;
 use Crell\ApiProblem\ApiProblem;
 use eLife\ApiClient\Exception\ApiException;
 use eLife\ApiClient\Exception\ApiProblemResponse;
+use eLife\ApiClient\Exception\ApiTimeout;
 use eLife\ApiClient\Exception\BadResponse;
 use eLife\ApiClient\Exception\NetworkProblem;
 use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Handler\MockHandler;
@@ -131,6 +133,21 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
         $client = new Guzzle6HttpClient($this->guzzle);
 
         $this->expectException(BadResponse::class);
+
+        $client->send($request)->wait();
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_api_timeout_exceptions()
+    {
+        $request = new Request('GET', 'foo');
+        $this->mock->append(new ConnectException('Problem', $request, null, ['errno' => 28, 'error' => 'Timeout']));
+
+        $client = new Guzzle6HttpClient($this->guzzle);
+
+        $this->expectException(ApiTimeout::class);
 
         $client->send($request)->wait();
     }
