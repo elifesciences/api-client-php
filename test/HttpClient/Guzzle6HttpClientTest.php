@@ -27,6 +27,7 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
 {
     private $mock;
     private $history;
+    private $stack;
     private $guzzle;
 
     protected function setUp()
@@ -36,10 +37,10 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
         $this->mock = new MockHandler();
         $this->history = [];
 
-        $stack = HandlerStack::create($this->mock);
-        $stack->push(Middleware::history($this->history));
+        $this->stack = HandlerStack::create($this->mock);
+        $this->stack->push(Middleware::history($this->history));
 
-        $this->guzzle = new Client(['handler' => $stack]);
+        $this->guzzle = new Client(['handler' => $this->stack]);
     }
 
     /**
@@ -193,6 +194,25 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
         $client = new Guzzle6HttpClient($this->guzzle);
 
         $this->expectException(ApiException::class);
+
+        $client->send($request)->wait();
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_api_exceptions_when_guzzle_is_set_to_not_throw_exceptions()
+    {
+        $request = new Request('GET', 'foo');
+        $apiProblem = new ApiProblem('Problem');
+        $response = new Response(404, ['Content-Type' => 'application/problem+json'], $apiProblem->asJson());
+
+        $this->mock->append($response);
+
+        $guzzle = new Client(['handler' => $this->stack, 'http_errors' => false]);
+        $client = new Guzzle6HttpClient($guzzle);
+
+        $this->expectException(ApiProblemResponse::class);
 
         $client->send($request)->wait();
     }
