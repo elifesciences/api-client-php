@@ -34,7 +34,7 @@ final class Guzzle6HttpClient implements HttpClient
     {
         $request = $request->withHeader('User-Agent', trim(($request->getHeader('User-Agent')[0] ?? '').' '.default_user_agent()));
 
-        return $this->client->sendAsync($request)
+        return $this->client->sendAsync($request, ['http_errors' => true])
             ->then(
                 function (ResponseInterface $response) {
                     return HttpResult::fromResponse($response);
