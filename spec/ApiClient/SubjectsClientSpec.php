@@ -21,7 +21,7 @@ final class SubjectsClientSpec extends ObjectBehavior
         $this->beConstructedWith($httpClient, ['X-Foo' => 'bar']);
     }
 
-    public function it_gets_a_subject()
+    public function it_gets_an_experiment()
     {
         $request = new Request('GET', 'subjects/cell-biology',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.subject+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);

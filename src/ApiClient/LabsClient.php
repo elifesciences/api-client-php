@@ -7,12 +7,12 @@ use GuzzleHttp\Promise\PromiseInterface;
 
 final class LabsClient
 {
-    const TYPE_POST = 'application/vnd.elife.labs-post+json';
-    const TYPE_POST_LIST = 'application/vnd.elife.labs-post-list+json';
+    const TYPE_EXPERIMENT = 'application/vnd.elife.labs-post+json';
+    const TYPE_EXPERIMENT_LIST = 'application/vnd.elife.labs-post-list+json';
 
     use ApiClient;
 
-    public function getPost(array $headers, int $number) : PromiseInterface
+    public function getExperiment(array $headers, int $number) : PromiseInterface
     {
         return $this->getRequest(
             'labs-posts/'.$number,
@@ -20,7 +20,7 @@ final class LabsClient
         );
     }
 
-    public function listPosts(
+    public function listExperiments(
         array $headers = [],
         int $page = 1,
         int $perPage = 20,

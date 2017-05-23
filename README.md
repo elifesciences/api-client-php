@@ -44,7 +44,7 @@ $guzzle = new Guzzle(['base_uri' => 'https://api.elifesciences.org/']);
 $httpClient = new Guzzle6HttpClient($guzzle);
 $labsClient = new LabsClient($httpClient);
 
-var_dump($labsClient->listPosts(['Accept' => new MediaType(LabsClient::TYPE_EXPERIMENT_LIST, 1)])->wait()->search('items[*].number'));
+var_dump($labsClient->listExperiments(['Accept' => new MediaType(LabsClient::TYPE_EXPERIMENT_LIST, 1)])->wait()->search('items[*].number'));
 ```
 
 ### Deprecation warnings
