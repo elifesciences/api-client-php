@@ -32,7 +32,7 @@ API clients always return instances of `GuzzleHttp\Promise\PromiseInterface`, wh
 
 ### Basic example
 
-To list the Labs Post numbers that appear on the first page of the endpoint:
+To list the Labs Post IDs that appear on the first page of the endpoint:
 
 ```php
 use eLife\ApiClient\ApiClient\LabsClient;
@@ -44,7 +44,7 @@ $guzzle = new Guzzle(['base_uri' => 'https://api.elifesciences.org/']);
 $httpClient = new Guzzle6HttpClient($guzzle);
 $labsClient = new LabsClient($httpClient);
 
-var_dump($labsClient->listPosts(['Accept' => new MediaType(LabsClient::TYPE_EXPERIMENT_LIST, 1)])->wait()->search('items[*].number'));
+var_dump($labsClient->listPosts(['Accept' => new MediaType(LabsClient::TYPE_POST_LIST, 1)])->wait()->search('items[*].id'));
 ```
 
 ### Deprecation warnings
