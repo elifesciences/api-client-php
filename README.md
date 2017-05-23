@@ -32,7 +32,7 @@ API clients always return instances of `GuzzleHttp\Promise\PromiseInterface`, wh
 
 ### Basic example
 
-To list the Labs Experiment numbers that appear on the first page of the endpoint:
+To list the Labs Post numbers that appear on the first page of the endpoint:
 
 ```php
 use eLife\ApiClient\ApiClient\LabsClient;
