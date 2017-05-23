@@ -49,7 +49,7 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
     public function it_returns_results()
     {
         $request = new Request('GET', 'foo');
-        $response = new Response(200, ['Content-Type' => 'application/vnd.elife.labs-post+json; version=1'],
+        $response = new Response(200, ['Content-Type' => 'application/vnd.elife.labs-experiment+json; version=1'],
             json_encode(['foo' => ['bar', 'baz']]));
         $result = HttpResult::fromResponse($response);
 
@@ -67,7 +67,7 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
     public function it_sets_a_user_agent(string $existing = null, string $expected)
     {
         $request = new Request('GET', 'foo', ['User-Agent' => $existing]);
-        $response = new Response(200, ['Content-Type' => 'application/vnd.elife.labs-post+json; version=1'],
+        $response = new Response(200, ['Content-Type' => 'application/vnd.elife.labs-experiment+json; version=1'],
             json_encode(['foo' => ['bar', 'baz']]));
 
         $this->mock->append($response);

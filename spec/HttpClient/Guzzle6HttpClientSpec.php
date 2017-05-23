@@ -32,7 +32,7 @@ final class Guzzle6HttpClientSpec extends ObjectBehavior
     public function it_sends_requests()
     {
         $request = new Request('GET', 'foo');
-        $response = new Response(200, ['Content-Type' => 'application/vnd.elife.labs-post+json; version=1'],
+        $response = new Response(200, ['Content-Type' => 'application/vnd.elife.labs-experiment+json; version=1'],
             json_encode(['foo' => ['bar', 'baz']]));
 
         $this->mock->append($response);

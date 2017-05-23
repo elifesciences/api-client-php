@@ -19,7 +19,7 @@ final class HttpResultSpec extends ObjectBehavior
 
     public function let()
     {
-        $this->mediaType = MediaType::fromString('application/vnd.elife.labs-post+json; version=1');
+        $this->mediaType = MediaType::fromString('application/vnd.elife.labs-experiment+json; version=1');
         $this->data = ['one' => ['two', 'three']];
         $this->response = new Response(200, ['Content-Type' => (string) $this->mediaType], json_encode($this->data));
 

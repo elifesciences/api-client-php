@@ -12,7 +12,7 @@ final class MediaTypeSpec extends ObjectBehavior
 
     public function let()
     {
-        $this->type = 'application/vnd.elife.labs-post+json';
+        $this->type = 'application/vnd.elife.labs-experiment+json';
         $this->version = 1;
         $this->string = sprintf('%s; version=%s', $this->type, $this->version);
 
