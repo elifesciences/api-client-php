@@ -21,7 +21,7 @@ final class LabsClientSpec extends ObjectBehavior
         $this->beConstructedWith($httpClient, ['X-Foo' => 'bar']);
     }
 
-    public function it_gets_an_experiment()
+    public function it_gets_a_post()
     {
         $request = new Request('GET', 'labs-posts/3',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.labs-post+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
@@ -30,12 +30,12 @@ final class LabsClientSpec extends ObjectBehavior
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->getExperiment(['Accept' => 'application/vnd.elife.labs-post+json; version=2'], 3)
+        $this->getPost(['Accept' => 'application/vnd.elife.labs-post+json; version=2'], 3)
             ->shouldBeLike($response)
         ;
     }
 
-    public function it_lists_experiments()
+    public function it_lists_posts()
     {
         $request = new Request('GET', 'labs-posts?page=1&per-page=20&order=desc',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.labs-post-list+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
@@ -44,7 +44,7 @@ final class LabsClientSpec extends ObjectBehavior
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->listExperiments(['Accept' => 'application/vnd.elife.labs-post-list+json; version=2'])
+        $this->listPosts(['Accept' => 'application/vnd.elife.labs-post-list+json; version=2'])
             ->shouldBeLike($response)
         ;
     }
