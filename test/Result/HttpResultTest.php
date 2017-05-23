@@ -48,7 +48,7 @@ final class HttpResultTest extends PHPUnit_Framework_TestCase
         $this->expectException(UnexpectedValueException::class);
 
         HttpResult::fromResponse(new Response(200,
-            ['Content-Type' => 'application/vnd.elife.labs-experiment+json; version=1']));
+            ['Content-Type' => 'application/vnd.elife.labs-post+json; version=1']));
     }
 
     /**
@@ -59,6 +59,6 @@ final class HttpResultTest extends PHPUnit_Framework_TestCase
         $this->expectException(UnexpectedValueException::class);
 
         HttpResult::fromResponse(new Response(200,
-            ['Content-Type' => 'application/vnd.elife.labs-experiment+json; version=1'], 'foo'));
+            ['Content-Type' => 'application/vnd.elife.labs-post+json; version=1'], 'foo'));
     }
 }
