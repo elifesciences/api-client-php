@@ -21,16 +21,16 @@ final class HighlightsClientSpec extends ObjectBehavior
         $this->beConstructedWith($httpClient, ['X-Foo' => 'bar']);
     }
 
-    public function it_gets_a_list()
+    public function it_lists_highlights()
     {
-        $request = new Request('GET', 'highlights/list',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.highlights+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
-        $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.highlights+json',
+        $request = new Request('GET', 'highlights/list?page=1&per-page=20&order=desc',
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.highlight-list+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
+        $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.highlight-list+json',
             2), ['foo' => ['bar', 'baz']]));
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->list(['Accept' => 'application/vnd.elife.highlights+json; version=2'], 'list')
+        $this->list(['Accept' => 'application/vnd.elife.highlight-list+json; version=2'], 'list', 1, 20, true)
             ->shouldBeLike($response);
     }
 }
