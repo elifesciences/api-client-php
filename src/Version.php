@@ -1,5 +1,4 @@
 <?php
-
 namespace eLife\ApiClient;
 
 use PackageVersions\Versions;
