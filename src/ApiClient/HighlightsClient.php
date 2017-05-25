@@ -7,11 +7,11 @@ use GuzzleHttp\Promise\PromiseInterface;
 
 final class HighlightsClient
 {
-    const TYPE_HIGHLIGHTS = 'application/vnd.elife.highlight-list+json';
+    const TYPE_HIGHLIGHT_LIST = 'application/vnd.elife.highlight-list+json';
 
     use ApiClient;
 
-    public function list(
+    public function listHighlights(
         array $headers,
         string $id,
         int $page = 1,

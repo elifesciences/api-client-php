@@ -30,7 +30,7 @@ final class HighlightsClientSpec extends ObjectBehavior
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->list(['Accept' => 'application/vnd.elife.highlight-list+json; version=2'], 'list', 1, 20, true)
+        $this->listHighlights(['Accept' => 'application/vnd.elife.highlight-list+json; version=2'], 'list', 1, 20, true)
             ->shouldBeLike($response);
     }
 }
