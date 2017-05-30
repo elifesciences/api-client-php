@@ -30,7 +30,7 @@ final class LabsClientSpec extends ObjectBehavior
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->getPost(['Accept' => 'application/vnd.elife.labs-post+json; version=2'], 3)
+        $this->getPost(['Accept' => 'application/vnd.elife.labs-post+json; version=2'], '3')
             ->shouldBeLike($response)
         ;
     }
