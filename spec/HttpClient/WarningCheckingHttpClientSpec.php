@@ -33,7 +33,7 @@ final class WarningCheckingHttpClientSpec extends ObjectBehavior
     {
         $request = new Request('GET', 'foo');
         $response = new Response(200, [
-            'Content-Type' => 'application/vnd.elife.labs-experiment+json; version=1',
+            'Content-Type' => 'application/vnd.elife.labs-post+json; version=1',
             'Warning' => ['299 elifesciences.org "This is a warning"'],
         ],
             json_encode(['foo' => ['bar', 'baz']]));
@@ -51,7 +51,7 @@ final class WarningCheckingHttpClientSpec extends ObjectBehavior
     {
         $request = new Request('GET', 'foo');
         $response = new Response(200, [
-            'Content-Type' => 'application/vnd.elife.labs-experiment+json; version=1',
+            'Content-Type' => 'application/vnd.elife.labs-post+json; version=1',
             'Warning' => ['299 someone "This is a different warning"'],
         ],
             json_encode(['foo' => ['bar', 'baz']]));

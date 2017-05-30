@@ -17,7 +17,7 @@ final class ArrayResultSpec extends ObjectBehavior
 
     public function let()
     {
-        $this->mediaType = MediaType::fromString('application/vnd.elife.labs-experiment+json; version=1');
+        $this->mediaType = MediaType::fromString('application/vnd.elife.labs-post+json; version=1');
         $this->data = ['foo' => ['bar', 'baz']];
 
         $this->beConstructedWith($this->mediaType, $this->data);

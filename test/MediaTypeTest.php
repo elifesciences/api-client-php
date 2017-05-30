@@ -69,8 +69,8 @@ final class MediaTypeTest extends PHPUnit_Framework_TestCase
             'empty string' => ['', InvalidArgumentException::class],
             'missing media type' => ['version=1', InvalidArgumentException::class],
             'invalid media type' => ['application/; version=1', InvalidArgumentException::class],
-            'missing version' => ['application/vnd.elife.labs-experiment+json', InvalidArgumentException::class],
-            'invalid version' => ['application/vnd.elife.labs-experiment+json; version=-1', InvalidArgumentException::class],
+            'missing version' => ['application/vnd.elife.labs-post+json', InvalidArgumentException::class],
+            'invalid version' => ['application/vnd.elife.labs-post+json; version=-1', InvalidArgumentException::class],
         ];
     }
 }
