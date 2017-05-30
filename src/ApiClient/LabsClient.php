@@ -12,10 +12,10 @@ final class LabsClient
 
     use ApiClient;
 
-    public function getPost(array $headers, int $number) : PromiseInterface
+    public function getPost(array $headers, string $id) : PromiseInterface
     {
         return $this->getRequest(
-            'labs-posts/'.$number,
+            'labs-posts/'.$id,
             $headers
         );
     }
