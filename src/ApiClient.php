@@ -6,6 +6,7 @@ use eLife\ApiClient\HttpClient\UserAgentPrependingHttpClient;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
 
 trait ApiClient
 {
@@ -18,14 +19,14 @@ trait ApiClient
         $this->headers = $headers;
     }
 
-    final protected function deleteRequest(string $uri, array $headers) : PromiseInterface
+    final protected function deleteRequest(UriInterface $uri, array $headers) : PromiseInterface
     {
         $request = new Request('DELETE', $uri, array_merge($this->headers, $headers));
 
         return $this->httpClient->send($request);
     }
 
-    final protected function getRequest(string $uri, array $headers) : PromiseInterface
+    final protected function getRequest(UriInterface $uri, array $headers) : PromiseInterface
     {
         $request = new Request('GET', $uri, array_merge($this->headers, $headers));
 
@@ -33,7 +34,7 @@ trait ApiClient
     }
 
     final protected function postRequest(
-        string $uri,
+        UriInterface $uri,
         array $headers,
         MediaType $contentType,
         StreamInterface $content
@@ -46,7 +47,7 @@ trait ApiClient
     }
 
     final protected function putRequest(
-        string $uri,
+        UriInterface $uri,
         array $headers,
         MediaType $contentType,
         StreamInterface $content

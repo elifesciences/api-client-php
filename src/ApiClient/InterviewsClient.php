@@ -4,6 +4,8 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\build_query;
 
 final class InterviewsClient
 {
@@ -14,7 +16,7 @@ final class InterviewsClient
 
     public function getInterview(array $headers, string $id) : PromiseInterface
     {
-        return $this->getRequest('interviews/'.$id, $headers);
+        return $this->getRequest(Uri::fromParts(['path' => "interviews/$id"]), $headers);
     }
 
     public function listInterviews(
@@ -24,7 +26,14 @@ final class InterviewsClient
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
-            'interviews?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc'),
+            Uri::fromParts([
+                'path' => 'interviews',
+                'query' => build_query(array_filter([
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                ])),
+            ]),
             $headers
         );
     }

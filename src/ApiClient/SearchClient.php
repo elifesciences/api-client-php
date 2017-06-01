@@ -5,6 +5,8 @@ namespace eLife\ApiClient\ApiClient;
 use DateTimeImmutable;
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\build_query;
 
 final class SearchClient
 {
@@ -25,19 +27,21 @@ final class SearchClient
         DateTimeImmutable $starts = null,
         DateTimeImmutable $ends = null
     ) : PromiseInterface {
-        $subjectQuery = '';
-        foreach ($subjects as $subject) {
-            $subjectQuery .= '&subject[]='.$subject;
-        }
-        $typeQuery = '';
-        foreach ($types as $type) {
-            $typeQuery .= '&type[]='.$type;
-        }
-        $startsQuery = $starts ? '&start-date='.$starts->format('Y-m-d') : '';
-        $endsQuery = $ends ? '&end-date='.$ends->format('Y-m-d') : '';
-
         return $this->getRequest(
-            'search?for='.$query.'&page='.$page.'&per-page='.$perPage.'&sort='.$sort.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery.$typeQuery.'&use-date='.$useDate.$startsQuery.$endsQuery,
+            Uri::fromParts([
+                'path' => 'search',
+                'query' => build_query(['for' => $query] + array_filter([
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'sort' => $sort,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                    'subject[]' => $subjects,
+                    'type[]' => $types,
+                    'use-date' => $useDate,
+                    'start-date' => $starts ? $starts->format('Y-m-d') : null,
+                    'end-date' => $ends ? $ends->format('Y-m-d') : null,
+                ])),
+            ]),
             $headers
         );
     }

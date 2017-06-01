@@ -4,6 +4,8 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\build_query;
 
 final class LabsClient
 {
@@ -15,7 +17,7 @@ final class LabsClient
     public function getPost(array $headers, string $id) : PromiseInterface
     {
         return $this->getRequest(
-            'labs-posts/'.$id,
+            Uri::fromParts(['path' => "labs-posts/$id"]),
             $headers
         );
     }
@@ -27,7 +29,14 @@ final class LabsClient
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
-            'labs-posts?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc'),
+            Uri::fromParts([
+                'path' => 'labs-posts',
+                'query' => build_query(array_filter([
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                ])),
+            ]),
             $headers
         );
     }

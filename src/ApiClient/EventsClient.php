@@ -4,6 +4,8 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\build_query;
 
 final class EventsClient
 {
@@ -14,7 +16,7 @@ final class EventsClient
 
     public function getEvent(array $headers, string $id) : PromiseInterface
     {
-        return $this->getRequest('events/'.$id, $headers);
+        return $this->getRequest(Uri::fromParts(['path' => "events/$id"]), $headers);
     }
 
     public function listEvents(
@@ -25,7 +27,15 @@ final class EventsClient
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
-            'events?page='.$page.'&per-page='.$perPage.'&type='.$type.'&order='.($descendingOrder ? 'desc' : 'asc'),
+            Uri::fromParts([
+                'path' => 'events',
+                'query' => build_query(array_filter([
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'type' => $type,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                ])),
+            ]),
             $headers
         );
     }

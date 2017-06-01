@@ -4,6 +4,8 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\build_query;
 
 final class AnnualReportsClient
 {
@@ -14,7 +16,7 @@ final class AnnualReportsClient
 
     public function getReport(array $headers, int $year) : PromiseInterface
     {
-        return $this->getRequest('annual-reports/'.$year, $headers);
+        return $this->getRequest(Uri::fromParts(['path' => "annual-reports/$year"]), $headers);
     }
 
     public function listReports(
@@ -24,7 +26,14 @@ final class AnnualReportsClient
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
-            'annual-reports?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc'),
+            Uri::fromParts([
+                'path' => 'annual-reports',
+                'query' => build_query(array_filter([
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                ])),
+            ]),
             $headers
         );
     }
