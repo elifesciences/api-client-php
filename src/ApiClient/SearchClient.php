@@ -30,7 +30,7 @@ final class SearchClient
         return $this->getRequest(
             Uri::fromParts([
                 'path' => 'search',
-                'query' => build_query([
+                'query' => build_query(array_filter([
                     'for' => $query,
                     'page' => $page,
                     'per-page' => $perPage,
@@ -41,7 +41,7 @@ final class SearchClient
                     'use-date' => $useDate,
                     'start-date' => $starts ? $starts->format('Y-m-d') : null,
                     'end-date' => $ends ? $ends->format('Y-m-d') : null,
-                ]),
+                ])),
             ]),
             $headers
         );

@@ -28,11 +28,11 @@ final class AnnualReportsClient
         return $this->getRequest(
             Uri::fromParts([
                 'path' => 'annual-reports',
-                'query' => build_query([
+                'query' => build_query(array_filter([
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
-                ]),
+                ])),
             ]),
             $headers
         );

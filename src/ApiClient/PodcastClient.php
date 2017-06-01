@@ -28,11 +28,11 @@ final class PodcastClient
         return $this->getRequest(
             Uri::fromParts([
                 'path' => 'podcast-episodes',
-                'query' => build_query([
+                'query' => build_query(array_filter([
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
-                ]),
+                ])),
             ]),
             $headers
         );

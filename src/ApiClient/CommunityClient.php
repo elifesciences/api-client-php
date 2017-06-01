@@ -23,12 +23,12 @@ final class CommunityClient
         return $this->getRequest(
             Uri::fromParts([
                 'path' => 'community',
-                'query' => build_query([
+                'query' => build_query(array_filter([
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
                     'subject[]' => $subjects,
-                ]),
+                ])),
             ]),
             $headers
         );

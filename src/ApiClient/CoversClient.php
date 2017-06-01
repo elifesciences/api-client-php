@@ -27,7 +27,7 @@ final class CoversClient
         return $this->getRequest(
             Uri::fromParts([
                 'path' => 'covers',
-                'query' => build_query([
+                'query' => build_query(array_filter([
                     'page' => $page,
                     'per-page' => $perPage,
                     'sort' => $sort,
@@ -35,7 +35,7 @@ final class CoversClient
                     'use-date' => $useDate,
                     'start-date' => $starts ? $starts->format('Y-m-d') : null,
                     'end-date' => $ends ? $ends->format('Y-m-d') : null,
-                ]),
+                ])),
             ]),
             $headers
         );

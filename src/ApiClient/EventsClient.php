@@ -29,12 +29,12 @@ final class EventsClient
         return $this->getRequest(
             Uri::fromParts([
                 'path' => 'events',
-                'query' => build_query([
+                'query' => build_query(array_filter([
                     'page' => $page,
                     'per-page' => $perPage,
                     'type' => $type,
                     'order' => $descendingOrder ? 'desc' : 'asc',
-                ]),
+                ])),
             ]),
             $headers
         );

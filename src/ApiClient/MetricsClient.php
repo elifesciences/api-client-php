@@ -31,12 +31,12 @@ final class MetricsClient
         return $this->getRequest(
             Uri::fromParts([
                 'path' => "metrics/$type/$id/downloads",
-                'query' => build_query([
+                'query' => build_query(array_filter([
                     'by' => $by,
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
-                ]),
+                ])),
             ]),
             $headers);
     }
@@ -53,12 +53,12 @@ final class MetricsClient
         return $this->getRequest(
             Uri::fromParts([
                 'path' => "metrics/$type/$id/page-views",
-                'query' => build_query([
+                'query' => build_query(array_filter([
                     'by' => $by,
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
-                ]),
+                ])),
             ]),
             $headers);
     }
