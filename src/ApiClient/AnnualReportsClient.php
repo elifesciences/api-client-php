@@ -26,7 +26,14 @@ final class AnnualReportsClient
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
-            Uri::fromParts(['path' => 'annual-reports', 'query' => build_query(['page' => $page, 'per-page' => $perPage, 'order' => $descendingOrder ? 'desc' : 'asc'])]),
+            Uri::fromParts([
+                'path' => 'annual-reports',
+                'query' => build_query([
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                ]),
+            ]),
             $headers
         );
     }
