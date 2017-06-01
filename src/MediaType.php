@@ -12,8 +12,8 @@ final class MediaType
 
     public function __construct(string $type, int $version)
     {
-        Assertion::regex($type, '~^[\w.+-]+/[\w.+-]+$~');
-        Assertion::min($version, 1);
+        Assertion::regex($type, '~^[\w.+-]+/[\w.+-]+$~', function (array $details) : string { return "'{$details['value']}' is not a valid media type name"; });
+        Assertion::min($version, 1, function (array $details) : string { return "Version must be at least 1, got {$details['value']}"; });
 
         $this->type = $type;
         $this->version = $version;
@@ -21,12 +21,12 @@ final class MediaType
 
     public static function fromString(string $header)
     {
-        Assertion::notBlank($header);
+        Assertion::notBlank($header, 'Media type is blank');
 
         $contentType = parse_header($header)[0];
 
-        Assertion::keyExists($contentType, 0);
-        Assertion::keyExists($contentType, 'version');
+        Assertion::keyExists($contentType, 0, "'$header' is not a valid media type");
+        Assertion::keyExists($contentType, 'version', "Media type '$header' is missing a version parameter");
 
         return new self($contentType[0], $contentType['version']);
     }
