@@ -4,6 +4,8 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\build_query;
 
 final class ArticlesClient
 {
@@ -17,22 +19,22 @@ final class ArticlesClient
 
     public function getArticleLatestVersion(array $headers, string $number) : PromiseInterface
     {
-        return $this->getRequest('articles/'.$number, $headers);
+        return $this->getRequest(Uri::fromParts(['path' => "articles/$number"]), $headers);
     }
 
     public function getArticleHistory(array $headers, string $number) : PromiseInterface
     {
-        return $this->getRequest('articles/'.$number.'/versions', $headers);
+        return $this->getRequest(Uri::fromParts(['path' => "articles/$number/versions"]), $headers);
     }
 
     public function getRelatedArticles(array $headers, string $number) : PromiseInterface
     {
-        return $this->getRequest('articles/'.$number.'/related', $headers);
+        return $this->getRequest(Uri::fromParts(['path' => "articles/$number/related"]), $headers);
     }
 
     public function getArticleVersion(array $headers, string $number, int $version) : PromiseInterface
     {
-        return $this->getRequest('articles/'.$number.'/versions/'.$version, $headers);
+        return $this->getRequest(Uri::fromParts(['path' => "articles/$number/versions/$version"]), $headers);
     }
 
     public function listArticles(
@@ -42,13 +44,16 @@ final class ArticlesClient
         bool $descendingOrder = true,
         array $subjects = []
     ) : PromiseInterface {
-        $subjectQuery = '';
-        foreach ($subjects as $subject) {
-            $subjectQuery .= '&subject[]='.$subject;
-        }
-
         return $this->getRequest(
-            'articles?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery,
+            Uri::fromParts([
+                'path' => 'articles',
+                'query' => build_query([
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                    'subject[]' => $subjects,
+                ]),
+            ]),
             $headers
         );
     }

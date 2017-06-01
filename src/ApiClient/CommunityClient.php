@@ -4,6 +4,8 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\build_query;
 
 final class CommunityClient
 {
@@ -18,13 +20,16 @@ final class CommunityClient
         bool $descendingOrder = true,
         array $subjects = []
     ) : PromiseInterface {
-        $subjectQuery = '';
-        foreach ($subjects as $subject) {
-            $subjectQuery .= '&subject[]='.$subject;
-        }
-
         return $this->getRequest(
-            'community?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery,
+            Uri::fromParts([
+                'path' => 'community',
+                'query' => build_query([
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                    'subject[]' => $subjects,
+                ]),
+            ]),
             $headers
         );
     }

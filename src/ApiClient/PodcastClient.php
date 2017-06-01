@@ -4,6 +4,8 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\build_query;
 
 final class PodcastClient
 {
@@ -14,7 +16,7 @@ final class PodcastClient
 
     public function getEpisode(array $headers, int $number) : PromiseInterface
     {
-        return $this->getRequest('podcast-episodes/'.$number, $headers);
+        return $this->getRequest(Uri::fromParts(['path' => "podcast-episodes/$number"]), $headers);
     }
 
     public function listEpisodes(
@@ -24,7 +26,14 @@ final class PodcastClient
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
-            'podcast-episodes?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc'),
+            Uri::fromParts([
+                'path' => 'podcast-episodes',
+                'query' => build_query([
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                ]),
+            ]),
             $headers
         );
     }

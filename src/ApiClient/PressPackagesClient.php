@@ -4,6 +4,8 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\build_query;
 
 final class PressPackagesClient
 {
@@ -14,7 +16,7 @@ final class PressPackagesClient
 
     public function getPackage(array $headers, string $id) : PromiseInterface
     {
-        return $this->getRequest('press-packages/'.$id, $headers);
+        return $this->getRequest(Uri::fromParts(['path' => "press-packages/$id"]), $headers);
     }
 
     public function listPackages(
@@ -24,13 +26,16 @@ final class PressPackagesClient
         bool $descendingOrder = true,
         array $subjects = []
     ) : PromiseInterface {
-        $subjectQuery = '';
-        foreach ($subjects as $subject) {
-            $subjectQuery .= '&subject[]='.$subject;
-        }
-
         return $this->getRequest(
-            'press-packages?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery,
+            Uri::fromParts([
+                'path' => 'press-packages',
+                'query' => build_query([
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                    'subject[]' => $subjects,
+                ]),
+            ]),
             $headers
         );
     }

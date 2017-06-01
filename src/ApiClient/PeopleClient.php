@@ -4,6 +4,8 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Psr7\Uri;
+use function GuzzleHttp\Psr7\build_query;
 
 final class PeopleClient
 {
@@ -14,7 +16,7 @@ final class PeopleClient
 
     public function getPerson(array $headers, string $id) : PromiseInterface
     {
-        return $this->getRequest('people/'.$id, $headers);
+        return $this->getRequest(Uri::fromParts(['path' => "people/$id"]), $headers);
     }
 
     public function listPeople(
@@ -25,14 +27,17 @@ final class PeopleClient
         array $subjects = [],
         string $type = null
     ) : PromiseInterface {
-        $subjectQuery = '';
-        foreach ($subjects as $subject) {
-            $subjectQuery .= '&subject[]='.$subject;
-        }
-        $typeQuery = ('' !== trim($type)) ? '&type='.$type : '';
-
         return $this->getRequest(
-            'people?page='.$page.'&per-page='.$perPage.'&order='.($descendingOrder ? 'desc' : 'asc').$subjectQuery.$typeQuery,
+            Uri::fromParts([
+                'path' => 'people',
+                'query' => build_query([
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                    'subject[]' => $subjects,
+                    'type' => $type,
+                ]),
+            ]),
             $headers
         );
     }
