@@ -30,8 +30,7 @@ final class SearchClient
         return $this->getRequest(
             Uri::fromParts([
                 'path' => 'search',
-                'query' => build_query(array_filter([
-                    'for' => $query,
+                'query' => build_query(['for' => $query] + array_filter([
                     'page' => $page,
                     'per-page' => $perPage,
                     'sort' => $sort,
