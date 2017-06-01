@@ -12,12 +12,8 @@ final class MediaType
 
     public function __construct(string $type, int $version)
     {
-        Assertion::regex($type, '~^[\w.+-]+/[\w.+-]+$~', function (array $details) : string {
-            return "'{$details['value']}' is not a valid media type name";
-        });
-        Assertion::min($version, 1, function (array $details) : string {
-            return "Version must be at least 1, got {$details['value']}";
-        });
+        Assertion::regex($type, '~^[\w.+-]+/[\w.+-]+$~', "'%s' is not a valid media type name");
+        Assertion::min($version, 1, 'Version must be at least 1, got %s');
 
         $this->type = $type;
         $this->version = $version;

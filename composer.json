@@ -16,7 +16,7 @@
     },
     "require": {
         "php": "^7.0",
-        "beberlei/assert": "^2.0",
+        "beberlei/assert": "^2.2",
         "crell/api-problem": "^2.0",
         "guzzlehttp/promises": "^1.0",
         "guzzlehttp/psr7": "^1.0",
