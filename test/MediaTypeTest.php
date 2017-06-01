@@ -5,7 +5,6 @@ namespace test\eLife\ApiClient;
 use eLife\ApiClient\MediaType;
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
-use TypeError;
 
 final class MediaTypeTest extends PHPUnit_Framework_TestCase
 {
@@ -13,9 +12,10 @@ final class MediaTypeTest extends PHPUnit_Framework_TestCase
      * @test
      * @dataProvider invalidMediaTypeProvider
      */
-    public function it_throws_an_exception_when_a_media_type_is_invalid($mediaType, string $expectedException)
+    public function it_throws_an_exception_when_a_media_type_is_invalid($mediaType, string $expectedException, string $expectedExceptionMessage)
     {
         $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
 
         new MediaType($mediaType, 1);
     }
@@ -23,11 +23,10 @@ final class MediaTypeTest extends PHPUnit_Framework_TestCase
     public function invalidMediaTypeProvider()
     {
         return [
-            'not a string' => [null, TypeError::class],
-            'empty string' => ['', InvalidArgumentException::class],
-            'missing second part' => ['text', InvalidArgumentException::class],
-            'empty first part' => ['/json', InvalidArgumentException::class],
-            'empty second part' => ['text/', InvalidArgumentException::class],
+            'empty string' => ['', InvalidArgumentException::class, "'' is not a valid media type"],
+            'missing second part' => ['text', InvalidArgumentException::class, "'text' is not a valid media type"],
+            'empty first part' => ['/json', InvalidArgumentException::class, "'/json' is not a valid media type"],
+            'empty second part' => ['text/', InvalidArgumentException::class, "'text/' is not a valid media type"],
         ];
     }
 
@@ -35,9 +34,10 @@ final class MediaTypeTest extends PHPUnit_Framework_TestCase
      * @test
      * @dataProvider invalidVersionProvider
      */
-    public function it_throws_an_exception_when_a_version_is_invalid($version, string $expectedException)
+    public function it_throws_an_exception_when_a_version_is_invalid($version, string $expectedException, string $expectedExceptionMessage)
     {
         $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
 
         new MediaType('application/json', $version);
     }
@@ -45,9 +45,8 @@ final class MediaTypeTest extends PHPUnit_Framework_TestCase
     public function invalidVersionProvider()
     {
         return [
-            'not an integer' => [null, TypeError::class],
-            'negative number' => [-1, InvalidArgumentException::class],
-            'zero' => [0, InvalidArgumentException::class],
+            'negative number' => [-1, InvalidArgumentException::class, 'Version must be at least 1, got -1'],
+            'zero' => [0, InvalidArgumentException::class, 'Version must be at least 1, got 0'],
         ];
     }
 
@@ -55,9 +54,10 @@ final class MediaTypeTest extends PHPUnit_Framework_TestCase
      * @test
      * @dataProvider invalidStringProvider
      */
-    public function it_throws_an_exception_when_a_string_input_is_invalid($string, string $expectedException)
+    public function it_throws_an_exception_when_a_string_input_is_invalid($string, string $expectedException, string $expectedExceptionMessage)
     {
         $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
 
         MediaType::fromString($string);
     }
@@ -65,12 +65,11 @@ final class MediaTypeTest extends PHPUnit_Framework_TestCase
     public function invalidStringProvider()
     {
         return [
-            'not a string' => [null, TypeError::class],
-            'empty string' => ['', InvalidArgumentException::class],
-            'missing media type' => ['version=1', InvalidArgumentException::class],
-            'invalid media type' => ['application/; version=1', InvalidArgumentException::class],
-            'missing version' => ['application/vnd.elife.labs-post+json', InvalidArgumentException::class],
-            'invalid version' => ['application/vnd.elife.labs-post+json; version=-1', InvalidArgumentException::class],
+            'empty string' => ['', InvalidArgumentException::class, 'Media type is blank'],
+            'missing media type' => ['version=1', InvalidArgumentException::class, "'version=1' is not a valid media type"],
+            'invalid media type' => ['application/; version=1', InvalidArgumentException::class, "'application/' is not a valid media type name"],
+            'missing version' => ['application/vnd.elife.labs-post+json', InvalidArgumentException::class, "Media type 'application/vnd.elife.labs-post+json' is missing a version parameter"],
+            'invalid version' => ['application/vnd.elife.labs-post+json; version=-1', InvalidArgumentException::class, 'Version must be at least 1, got -1'],
         ];
     }
 }
