@@ -36,7 +36,7 @@ final class EventsClientSpec extends ObjectBehavior
 
     public function it_lists_events()
     {
-        $request = new Request('GET', 'events?page=1&per-page=20&type=open&order=desc',
+        $request = new Request('GET', 'events?page=1&per-page=20&show=open&order=desc',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.event-list+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.event-list+json',
             2), ['foo' => ['bar', 'baz']]));

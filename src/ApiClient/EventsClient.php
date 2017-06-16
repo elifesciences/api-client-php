@@ -23,7 +23,7 @@ final class EventsClient
         array $headers = [],
         int $page = 1,
         int $perPage = 20,
-        string $type = 'all',
+        string $show = 'all',
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
@@ -32,7 +32,7 @@ final class EventsClient
                 'query' => build_query(array_filter([
                     'page' => $page,
                     'per-page' => $perPage,
-                    'type' => $type,
+                    'show' => $show,
                     'order' => $descendingOrder ? 'desc' : 'asc',
                 ])),
             ]),
