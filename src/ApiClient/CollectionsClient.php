@@ -24,7 +24,8 @@ final class CollectionsClient
         int $page = 1,
         int $perPage = 20,
         bool $descendingOrder = true,
-        array $subjects = []
+        array $subjects = [],
+        array $containing = []
     ) : PromiseInterface {
         return $this->getRequest(
             Uri::fromParts([
@@ -34,6 +35,7 @@ final class CollectionsClient
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
                     'subject[]' => $subjects,
+                    'containing[]' => $containing,
                 ])),
             ]),
             $headers
