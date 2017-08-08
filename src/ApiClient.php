@@ -5,8 +5,10 @@ namespace eLife\ApiClient;
 use eLife\ApiClient\HttpClient\UserAgentPrependingHttpClient;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
+use function GuzzleHttp\Psr7\build_query;
 
 trait ApiClient
 {
@@ -57,5 +59,14 @@ trait ApiClient
         $request = new Request('PUT', $uri, $headers, $content);
 
         return $this->httpClient->send($request);
+    }
+
+    final protected function createUri(array $parts) : UriInterface
+    {
+        if (!empty($parts['query'])) {
+            $parts['query'] = build_query(array_filter($parts['query']), false);
+        }
+
+        return Uri::fromParts($parts);
     }
 }

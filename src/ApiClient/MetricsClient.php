@@ -4,8 +4,6 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Psr7\Uri;
-use function GuzzleHttp\Psr7\build_query;
 
 final class MetricsClient
 {
@@ -16,7 +14,7 @@ final class MetricsClient
 
     public function citations(array $headers, string $type, string $id) : PromiseInterface
     {
-        return $this->getRequest(Uri::fromParts(['path' => "metrics/$type/$id/citations"]), $headers);
+        return $this->getRequest($this->createUri(['path' => "metrics/$type/$id/citations"]), $headers);
     }
 
     public function downloads(
@@ -29,14 +27,14 @@ final class MetricsClient
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
-            Uri::fromParts([
+            $this->createUri([
                 'path' => "metrics/$type/$id/downloads",
-                'query' => build_query(array_filter([
+                'query' => [
                     'by' => $by,
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
-                ])),
+                ],
             ]),
             $headers);
     }
@@ -51,14 +49,14 @@ final class MetricsClient
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
-            Uri::fromParts([
+            $this->createUri([
                 'path' => "metrics/$type/$id/page-views",
-                'query' => build_query(array_filter([
+                'query' => [
                     'by' => $by,
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
-                ])),
+                ],
             ]),
             $headers);
     }

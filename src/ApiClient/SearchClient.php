@@ -6,7 +6,7 @@ use DateTimeImmutable;
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Uri;
-use function GuzzleHttp\Psr7\build_query;
+use function GuzzleHttp\Psr7\parse_query;
 
 final class SearchClient
 {
@@ -27,22 +27,26 @@ final class SearchClient
         DateTimeImmutable $starts = null,
         DateTimeImmutable $ends = null
     ) : PromiseInterface {
-        return $this->getRequest(
-            Uri::fromParts([
-                'path' => 'search',
-                'query' => build_query(['for' => $query] + array_filter([
-                    'page' => $page,
-                    'per-page' => $perPage,
-                    'sort' => $sort,
-                    'order' => $descendingOrder ? 'desc' : 'asc',
-                    'subject[]' => $subjects,
-                    'type[]' => $types,
-                    'use-date' => $useDate,
-                    'start-date' => $starts ? $starts->format('Y-m-d') : null,
-                    'end-date' => $ends ? $ends->format('Y-m-d') : null,
-                ])),
-            ]),
-            $headers
-        );
+        $uri = $this->createUri([
+            'path' => 'search',
+            'query' => [
+                'for' => $query,
+                'page' => $page,
+                'per-page' => $perPage,
+                'sort' => $sort,
+                'order' => $descendingOrder ? 'desc' : 'asc',
+                'subject[]' => $subjects,
+                'type[]' => $types,
+                'use-date' => $useDate,
+                'start-date' => $starts ? $starts->format('Y-m-d') : null,
+                'end-date' => $ends ? $ends->format('Y-m-d') : null,
+            ],
+        ]);
+
+        if (!isset(parse_query($uri->getQuery())['for'])) {
+            $uri = Uri::withQueryValue($uri, 'for', $query);
+        }
+
+        return $this->getRequest($uri, $headers);
     }
 }
