@@ -41,7 +41,7 @@ final class SearchClientSpec extends ObjectBehavior
     public function it_always_queries_with_for()
     {
         $request = new Request('GET',
-            'search?page=1&per-page=20&sort=relevance&order=desc&use-date=default&for=',
+            'search?for=&page=1&per-page=20&sort=relevance&order=desc&use-date=default',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.search+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.search+json',
             2), ['foo' => ['bar', 'baz']]));

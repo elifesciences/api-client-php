@@ -5,7 +5,6 @@ namespace eLife\ApiClient\ApiClient;
 use DateTimeImmutable;
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Psr7\Uri;
 use function GuzzleHttp\Psr7\parse_query;
 
 final class SearchClient
@@ -44,7 +43,7 @@ final class SearchClient
         ]);
 
         if (!isset(parse_query($uri->getQuery())['for'])) {
-            $uri = Uri::withQueryValue($uri, 'for', $query);
+            $uri = $uri->withQuery('for=&'.$uri->getQuery());
         }
 
         return $this->getRequest($uri, $headers);
