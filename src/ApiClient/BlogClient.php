@@ -4,8 +4,6 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Psr7\Uri;
-use function GuzzleHttp\Psr7\build_query;
 
 final class BlogClient
 {
@@ -16,7 +14,7 @@ final class BlogClient
 
     public function getArticle(array $headers, string $id) : PromiseInterface
     {
-        return $this->getRequest(Uri::fromParts(['path' => "blog-articles/$id"]), $headers);
+        return $this->getRequest($this->createUri(['path' => "blog-articles/$id"]), $headers);
     }
 
     public function listArticles(
@@ -27,14 +25,14 @@ final class BlogClient
         array $subjects = []
     ) : PromiseInterface {
         return $this->getRequest(
-            Uri::fromParts([
+            $this->createUri([
                 'path' => 'blog-articles',
-                'query' => build_query(array_filter([
+                'query' => [
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
                     'subject[]' => $subjects,
-                ])),
+                ],
             ]),
             $headers
         );

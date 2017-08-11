@@ -4,8 +4,6 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Psr7\Uri;
-use function GuzzleHttp\Psr7\build_query;
 
 final class RecommendationsClient
 {
@@ -22,13 +20,13 @@ final class RecommendationsClient
         bool $descendingOrder = true
     ) : PromiseInterface {
         return $this->getRequest(
-            Uri::fromParts([
+            $this->createUri([
                 'path' => "recommendations/$type/$id",
-                'query' => build_query(array_filter([
+                'query' => [
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
-                ])),
+                ],
             ]),
             $headers
         );
