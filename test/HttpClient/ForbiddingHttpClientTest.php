@@ -19,6 +19,6 @@ final class ForbiddingHttpClientTest extends PHPUnit_Framework_TestCase
         $this->expectException(UnintendedInteraction::class);
         $this->expectExceptionMessage('Forbidden call');
 
-        $client->send($request);
+        $client->send($request)->wait();
     }
 }

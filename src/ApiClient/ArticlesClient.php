@@ -4,8 +4,6 @@ namespace eLife\ApiClient\ApiClient;
 
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Psr7\Uri;
-use function GuzzleHttp\Psr7\build_query;
 
 final class ArticlesClient
 {
@@ -19,22 +17,22 @@ final class ArticlesClient
 
     public function getArticleLatestVersion(array $headers, string $number) : PromiseInterface
     {
-        return $this->getRequest(Uri::fromParts(['path' => "articles/$number"]), $headers);
+        return $this->getRequest($this->createUri(['path' => "articles/$number"]), $headers);
     }
 
     public function getArticleHistory(array $headers, string $number) : PromiseInterface
     {
-        return $this->getRequest(Uri::fromParts(['path' => "articles/$number/versions"]), $headers);
+        return $this->getRequest($this->createUri(['path' => "articles/$number/versions"]), $headers);
     }
 
     public function getRelatedArticles(array $headers, string $number) : PromiseInterface
     {
-        return $this->getRequest(Uri::fromParts(['path' => "articles/$number/related"]), $headers);
+        return $this->getRequest($this->createUri(['path' => "articles/$number/related"]), $headers);
     }
 
     public function getArticleVersion(array $headers, string $number, int $version) : PromiseInterface
     {
-        return $this->getRequest(Uri::fromParts(['path' => "articles/$number/versions/$version"]), $headers);
+        return $this->getRequest($this->createUri(['path' => "articles/$number/versions/$version"]), $headers);
     }
 
     public function listArticles(
@@ -45,14 +43,14 @@ final class ArticlesClient
         array $subjects = []
     ) : PromiseInterface {
         return $this->getRequest(
-            Uri::fromParts([
+            $this->createUri([
                 'path' => 'articles',
-                'query' => build_query(array_filter([
+                'query' => [
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
                     'subject[]' => $subjects,
-                ])),
+                ],
             ]),
             $headers
         );

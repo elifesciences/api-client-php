@@ -5,8 +5,6 @@ namespace eLife\ApiClient\ApiClient;
 use DateTimeImmutable;
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Psr7\Uri;
-use function GuzzleHttp\Psr7\build_query;
 
 final class CoversClient
 {
@@ -25,9 +23,9 @@ final class CoversClient
         DateTimeImmutable $ends = null
     ) : PromiseInterface {
         return $this->getRequest(
-            Uri::fromParts([
+            $this->createUri([
                 'path' => 'covers',
-                'query' => build_query(array_filter([
+                'query' => [
                     'page' => $page,
                     'per-page' => $perPage,
                     'sort' => $sort,
@@ -35,7 +33,7 @@ final class CoversClient
                     'use-date' => $useDate,
                     'start-date' => $starts ? $starts->format('Y-m-d') : null,
                     'end-date' => $ends ? $ends->format('Y-m-d') : null,
-                ])),
+                ],
             ]),
             $headers
         );
@@ -43,6 +41,6 @@ final class CoversClient
 
     public function listCurrentCovers(array $headers = []) : PromiseInterface
     {
-        return $this->getRequest(Uri::fromParts(['path' => 'covers/current']), $headers);
+        return $this->getRequest($this->createUri(['path' => 'covers/current']), $headers);
     }
 }
