@@ -21,7 +21,8 @@ final class PodcastClient
         array $headers = [],
         int $page = 1,
         int $perPage = 20,
-        bool $descendingOrder = true
+        bool $descendingOrder = true,
+        array $containing = []
     ) : PromiseInterface {
         return $this->getRequest(
             $this->createUri([
@@ -30,6 +31,7 @@ final class PodcastClient
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
+                    'containing[]' => $containing,
                 ],
             ]),
             $headers
