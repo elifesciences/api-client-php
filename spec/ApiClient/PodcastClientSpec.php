@@ -37,14 +37,14 @@ final class PodcastClientSpec extends ObjectBehavior
 
     public function it_lists_episodes()
     {
-        $request = new Request('GET', 'podcast-episodes?page=1&per-page=20&order=desc',
+        $request = new Request('GET', 'podcast-episodes?page=1&per-page=20&order=desc&containing[]=article/1234&containing[]=interview/5678',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.podcast-episode-list+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.podcast-episode-list+json',
             2), ['foo' => ['bar', 'baz']]));
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->listEpisodes(['Accept' => 'application/vnd.elife.podcast-episode-list+json; version=2'], 1, 20, true)
+        $this->listEpisodes(['Accept' => 'application/vnd.elife.podcast-episode-list+json; version=2'], 1, 20, true, ['article/1234', 'interview/5678'])
             ->shouldBeLike($response)
         ;
     }
