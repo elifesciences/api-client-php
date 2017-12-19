@@ -1,0 +1,36 @@
+<?php
+
+namespace eLife\ApiClient\ApiClient;
+
+use eLife\ApiClient\ApiClient;
+use GuzzleHttp\Promise\PromiseInterface;
+
+final class AnnotationsClient
+{
+    const TYPE_ANNOTATION_LIST = 'application/vnd.elife.annotation-list+json';
+
+    use ApiClient;
+
+    public function listAnnotations(
+        array $headers,
+        string $by,
+        int $page = 1,
+        int $perPage = 20,
+        bool $descendingOrder = true,
+        bool $updatedSortBy = true
+    ) : PromiseInterface {
+        return $this->getRequest(
+            $this->createUri([
+                'path' => 'annotations',
+                'query' => [
+                    'by' => $by,
+                    'page' => $page,
+                    'per-page' => $perPage,
+                    'order' => $descendingOrder ? 'desc' : 'asc',
+                    'use-date' => $updatedSortBy ? 'updated' : 'created',
+                ],
+            ]),
+            $headers
+        );
+    }
+}
