@@ -30,7 +30,7 @@ final class AnnotationsClientSpec extends ObjectBehavior
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->listAnnotations(['Accept' => 'application/vnd.elife.annotation-list+json; version=1'], 'user', 1, 20, true, true)
+        $this->listAnnotations(['Accept' => 'application/vnd.elife.annotation-list+json; version=1'], 'user', 1, 20, true, 'updated')
             ->shouldBeLike($response);
     }
 }
