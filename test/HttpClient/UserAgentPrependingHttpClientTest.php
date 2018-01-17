@@ -20,7 +20,7 @@ final class UserAgentPrependingHttpClientTest extends PHPUnit_Framework_TestCase
     {
         $this->requests = [];
 
-        $this->originalClient = new NotifyingHttpClient($this->getMock(HttpClient::class));
+        $this->originalClient = new NotifyingHttpClient($this->createMock(HttpClient::class));
 
         $this->originalClient->addRequestListener(function (RequestInterface $request) {
             $this->requests[] = $request;
