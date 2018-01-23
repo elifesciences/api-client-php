@@ -29,8 +29,7 @@
         "mtdowling/jmespath.php": "^2.0",
         "phpspec/phpspec": "^2.4",
         "phpspec/prophecy": "^1.5",
-        "phpunit/phpunit": "^5.7.1",
-        "sebastian/exporter": "^2.0.0",
+        "phpunit/phpunit": "^5.7.2",
         "psr/log": "^1.0"
     },
     "suggest": {
