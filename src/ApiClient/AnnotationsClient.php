@@ -17,7 +17,8 @@ final class AnnotationsClient
         int $page = 1,
         int $perPage = 20,
         bool $descendingOrder = true,
-        string $useDate = 'updated'
+        string $useDate = 'updated',
+        string $access = 'public'
     ) : PromiseInterface {
         return $this->getRequest(
             $this->createUri([
@@ -28,6 +29,7 @@ final class AnnotationsClient
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
                     'use-date' => $useDate,
+                    'access' => $access,
                 ],
             ]),
             $headers
