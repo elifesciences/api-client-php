@@ -3,7 +3,6 @@
 namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\HttpClient;
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_TestCase;
