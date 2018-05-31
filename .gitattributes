@@ -1,0 +1,5 @@
+/*.* export-ignore
+/build export-ignore
+/Jenkinsfile* export-ignore
+/spec export-ignore
+/test export-ignore
