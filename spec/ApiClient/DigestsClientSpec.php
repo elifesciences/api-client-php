@@ -10,7 +10,7 @@ use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Request;
 use PhpSpec\ObjectBehavior;
 
-final class Digests extends ObjectBehavior
+final class DigestsClientSpec extends ObjectBehavior
 {
     private $httpClient;
 
