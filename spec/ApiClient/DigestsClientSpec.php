@@ -23,7 +23,7 @@ final class DigestsClientSpec extends ObjectBehavior
 
     public function it_gets_a_digest()
     {
-        $request = new Request('GET', 'digest/3',
+        $request = new Request('GET', 'digests/3',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.digest+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
 
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.digest+json',
