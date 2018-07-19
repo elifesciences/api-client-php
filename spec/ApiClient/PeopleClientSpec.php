@@ -37,7 +37,7 @@ final class PeopleClientSpec extends ObjectBehavior
 
     public function it_lists_people()
     {
-        $request = new Request('GET', 'people?page=1&per-page=20&order=desc&subject[]=cell-biology&type=senior-editor',
+        $request = new Request('GET', 'people?page=1&per-page=20&order=desc&subject[]=cell-biology&type[]=senior-editor',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.person-list+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.person-list+json',
             2), ['foo' => ['bar', 'baz']]));
@@ -45,7 +45,7 @@ final class PeopleClientSpec extends ObjectBehavior
         $this->httpClient->send($request)->willReturn($response);
 
         $this->listPeople(['Accept' => 'application/vnd.elife.person-list+json; version=2'], 1, 20, true,
-            ['cell-biology'], 'senior-editor')->shouldBeLike($response)
+            ['cell-biology'], ['senior-editor'])->shouldBeLike($response)
         ;
     }
 }

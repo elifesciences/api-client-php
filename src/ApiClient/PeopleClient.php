@@ -23,7 +23,7 @@ final class PeopleClient
         int $perPage = 20,
         bool $descendingOrder = true,
         array $subjects = [],
-        string $type = null
+        array $types = []
     ) : PromiseInterface {
         return $this->getRequest(
             $this->createUri([
@@ -33,7 +33,7 @@ final class PeopleClient
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
                     'subject[]' => $subjects,
-                    'type' => $type,
+                    'type[]' => $types,
                 ],
             ]),
             $headers
