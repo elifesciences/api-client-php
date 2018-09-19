@@ -3,7 +3,6 @@
 namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\HttpClient;
-use eLife\ApiClient\Result;
 use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
