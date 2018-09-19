@@ -8,7 +8,6 @@ use eLife\ApiClient\Result\ArrayResult;
 use eLife\ApiClient\Version;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Request;
-use PackageVersions\Versions;
 use PhpSpec\ObjectBehavior;
 
 final class ArticlesClientSpec extends ObjectBehavior
