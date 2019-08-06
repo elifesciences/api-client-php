@@ -5,8 +5,8 @@ namespace eLife\ApiClient\HttpClient;
 use eLife\ApiClient\Exception\UnintendedInteraction;
 use eLife\ApiClient\HttpClient;
 use GuzzleHttp\Promise\PromiseInterface;
-use Psr\Http\Message\RequestInterface;
 use function GuzzleHttp\Promise\rejection_for;
+use Psr\Http\Message\RequestInterface;
 
 final class ForbiddingHttpClient implements HttpClient
 {

@@ -3,9 +3,9 @@
 namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\HttpClient;
+use function GuzzleHttp\Promise\all;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
-use function GuzzleHttp\Promise\all;
 
 final class BatchingHttpClient implements HttpClient
 {

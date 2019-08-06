@@ -12,14 +12,14 @@ use eLife\ApiClient\Exception\NetworkProblem;
 use eLife\ApiClient\HttpClient;
 use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\ClientInterface;
+use function GuzzleHttp\default_user_agent;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
+use function GuzzleHttp\Promise\exception_for;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\default_user_agent;
-use function GuzzleHttp\Promise\exception_for;
 
 final class Guzzle6HttpClient implements HttpClient
 {

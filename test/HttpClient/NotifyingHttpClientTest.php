@@ -3,11 +3,11 @@
 namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\HttpClient;
+use function GuzzleHttp\Promise\promise_for;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_TestCase;
 use RuntimeException;
-use function GuzzleHttp\Promise\promise_for;
 
 final class NotifyingHttpClientTest extends PHPUnit_Framework_TestCase
 {
