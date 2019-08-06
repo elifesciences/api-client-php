@@ -18,7 +18,7 @@ final class BioprotocolClient
     ) : PromiseInterface {
         return $this->getRequest(
             $this->createUri([
-                'path' => "bioprotocol/$type/$id"
+                'path' => "bioprotocol/$type/$id",
             ]),
             $headers
         );
