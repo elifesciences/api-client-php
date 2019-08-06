@@ -18,7 +18,7 @@ final class ApiProblemResponseSpec extends ObjectBehavior
     public function let()
     {
         $this->apiProblem = new ApiProblem();
-        $this->request = new Request(200, '/');
+        $this->request = new Request('GET', '/');
         $this->response = new Response();
 
         $this->beConstructedWith($this->apiProblem, $this->request, $this->response);

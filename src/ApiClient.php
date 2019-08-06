@@ -4,11 +4,11 @@ namespace eLife\ApiClient;
 
 use eLife\ApiClient\HttpClient\UserAgentPrependingHttpClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use function GuzzleHttp\Psr7\build_query;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
-use function GuzzleHttp\Psr7\build_query;
 
 trait ApiClient
 {

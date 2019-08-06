@@ -3,17 +3,17 @@
 namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\HttpClient;
-use Eris\TestTrait;
-use GuzzleHttp\Promise\Promise;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
-use PHPUnit_Framework_TestCase;
 use function Eris\Generator\bind;
 use function Eris\Generator\choose;
 use function Eris\Generator\constant;
 use function Eris\Generator\map;
 use function Eris\Generator\tuple;
 use function Eris\Generator\vector;
+use Eris\TestTrait;
+use GuzzleHttp\Promise\Promise;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+use PHPUnit_Framework_TestCase;
 
 class BatchingHttpClientTest extends PHPUnit_Framework_TestCase
 {

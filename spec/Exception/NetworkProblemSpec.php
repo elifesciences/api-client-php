@@ -15,7 +15,7 @@ final class NetworkProblemSpec extends ObjectBehavior
     public function let()
     {
         $this->message = 'foo';
-        $this->request = new Request(200, '/');
+        $this->request = new Request('GET', '/');
 
         $this->beConstructedWith($this->message, $this->request);
     }
