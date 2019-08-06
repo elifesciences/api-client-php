@@ -17,7 +17,7 @@ final class BadResponseSpec extends ObjectBehavior
     public function let()
     {
         $this->message = 'foo';
-        $this->request = new Request(200, '/');
+        $this->request = new Request('GET', '/');
         $this->response = new Response();
 
         $this->beConstructedWith($this->message, $this->request, $this->response);
