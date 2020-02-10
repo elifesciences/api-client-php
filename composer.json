@@ -32,6 +32,9 @@
         "phpunit/phpunit": "^5.2",
         "psr/log": "^1.0"
     },
+    "conflict": {
+        "sebastian/comparator": "<1.2.3"
+    },
     "suggest": {
         "guzzlehttp/guzzle": "^6.0, to use the Guzzle6HttpClient adapter",
         "mtdowling/jmespath.php": "^2.0, to use the Result::search() method",
