@@ -12,7 +12,7 @@ final class RegionalCollectionsClient
 
     use ApiClient;
 
-    public function getCollection(array $headers, string $id) : PromiseInterface
+    public function getRegionalCollection(array $headers, string $id) : PromiseInterface
     {
         return $this->getRequest($this->createUri(['path' => "regional-collections/$id"]), $headers);
     }

@@ -30,7 +30,7 @@ final class RegionalCollectionsClientSpec extends ObjectBehavior
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->getCollection(['Accept' => 'application/vnd.elife.regional-collection+json; version=1'], '3')
+        $this->getRegionalCollection(['Accept' => 'application/vnd.elife.regional-collection+json; version=1'], '3')
             ->shouldBeLike($response)
         ;
     }
