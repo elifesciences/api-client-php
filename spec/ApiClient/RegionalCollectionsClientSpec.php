@@ -24,7 +24,7 @@ final class RegionalCollectionsClientSpec extends ObjectBehavior
     public function it_gets_a_regional_collection()
     {
         $request = new Request('GET', 'regional-collections/3',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.collection+json; version=1', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.regional-collection+json; version=1', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.regional-collection+json',
             2), ['foo' => ['bar', 'baz']]));
 
