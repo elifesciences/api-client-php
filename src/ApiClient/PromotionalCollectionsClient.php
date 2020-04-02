@@ -5,19 +5,19 @@ namespace eLife\ApiClient\ApiClient;
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
 
-final class RegionalCollectionsClient
+final class PromotionalCollectionsClient
 {
-    const TYPE_REGIONAL_COLLECTION = 'application/vnd.elife.regional-collection+json';
-    const TYPE_REGIONAL_COLLECTION_LIST = 'application/vnd.elife.regional-collection-list+json';
+    const TYPE_PROMOTIONAL_COLLECTION = 'application/vnd.elife.promotional-collection+json';
+    const TYPE_PROMOTIONALL_COLLECTION_LIST = 'application/vnd.elife.promotional-collection-list+json';
 
     use ApiClient;
 
-    public function getRegionalCollection(array $headers, string $id) : PromiseInterface
+    public function getPromotionalCollection(array $headers, string $id) : PromiseInterface
     {
-        return $this->getRequest($this->createUri(['path' => "regional-collections/$id"]), $headers);
+        return $this->getRequest($this->createUri(['path' => "promotional-collections/$id"]), $headers);
     }
 
-    public function listRegionalCollections(
+    public function listPromotionalCollections(
         array $headers = [],
         int $page = 1,
         int $perPage = 20,
@@ -27,7 +27,7 @@ final class RegionalCollectionsClient
     ) : PromiseInterface {
         return $this->getRequest(
             $this->createUri([
-                'path' => 'regional-collections',
+                'path' => 'promotional-collections',
                 'query' => [
                     'page' => $page,
                     'per-page' => $perPage,
