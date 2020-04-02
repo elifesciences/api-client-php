@@ -8,7 +8,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 final class PromotionalCollectionsClient
 {
     const TYPE_PROMOTIONAL_COLLECTION = 'application/vnd.elife.promotional-collection+json';
-    const TYPE_PROMOTIONALL_COLLECTION_LIST = 'application/vnd.elife.promotional-collection-list+json';
+    const TYPE_PROMOTIONAL_COLLECTION_LIST = 'application/vnd.elife.promotional-collection-list+json';
 
     use ApiClient;
 
