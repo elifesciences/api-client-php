@@ -44,9 +44,10 @@ final class PromotionalCollectionsClientSpec extends ObjectBehavior
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->listPromotionalCollections(['Accept' => 'application/vnd.elife.promotional-collection-list+json; version=1'],
+        $this->listPromotionalCollections(
+            ['Accept' => 'application/vnd.elife.promotional-collection-list+json; version=1'],
             1, 20, true,
-            ['cell-biology'], ['article/1234', 'interview/5678'])->shouldBeLike($response)
-        ;
+            ['cell-biology'], ['article/1234', 'interview/5678']
+        )->shouldBeLike($response);
     }
 }
