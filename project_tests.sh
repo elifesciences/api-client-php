@@ -4,7 +4,7 @@ set -e
 : "${dependencies:?Need to set dependencies environment variable}"
 if [ "$dependencies" = "lowest" ]; then
     composer update --prefer-lowest --no-interaction
-    proofreader spec/ src/ test/
+    vendor/bin/phpcs --standard=phpcs.xml.dist --warning-severity=0 -p spec/ src/ test/
 else
     composer update --no-interaction
 fi
