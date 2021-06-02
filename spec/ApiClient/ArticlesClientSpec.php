@@ -24,13 +24,13 @@ final class ArticlesClientSpec extends ObjectBehavior
     public function it_gets_a_latest_version_for_an_article()
     {
         $request = new Request('GET', 'articles/3',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.article-poa+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.article-poa+json; version=3', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.article-poa+json',
-            2), ['foo' => ['bar', 'baz']]));
+            3), ['foo' => ['bar', 'baz']]));
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->getArticleLatestVersion(['Accept' => 'application/vnd.elife.article-poa+json; version=2'], '3')
+        $this->getArticleLatestVersion(['Accept' => 'application/vnd.elife.article-poa+json; version=3'], '3')
             ->shouldBeLike($response)
         ;
     }
@@ -65,13 +65,13 @@ final class ArticlesClientSpec extends ObjectBehavior
     public function it_gets_a_version_for_an_article()
     {
         $request = new Request('GET', 'articles/3/versions/2',
-            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.article-poa+json; version=2', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
+            ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.article-poa+json; version=3', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.article-poa+json',
-            2), ['foo' => ['bar', 'baz']]));
+            3), ['foo' => ['bar', 'baz']]));
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->getArticleVersion(['Accept' => 'application/vnd.elife.article-poa+json; version=2'], '3', 2)
+        $this->getArticleVersion(['Accept' => 'application/vnd.elife.article-poa+json; version=3'], '3', 2)
             ->shouldBeLike($response)
         ;
     }
