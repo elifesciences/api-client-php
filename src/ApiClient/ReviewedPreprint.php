@@ -7,8 +7,8 @@ use GuzzleHttp\Promise\PromiseInterface;
 
 final class ReviewedPreprint
 {
-    const TYPE_REVIEWED_PREPRINT = 'application/vnd.elife.reviewed-preprint-list+json';
-    const TYPE_REVIEWED_PREPRINT_LIST = 'application/vnd.elife.blog-article-list+json';
+    const TYPE_REVIEWED_PREPRINT = 'application/vnd.elife.reviewed-preprint+json';
+    const TYPE_REVIEWED_PREPRINT_LIST = 'application/vnd.elife.reviewed-preprint-list+json';
 
     use ApiClient;
 
