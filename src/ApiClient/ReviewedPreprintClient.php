@@ -5,7 +5,7 @@ namespace eLife\ApiClient\ApiClient;
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
 
-final class ReviewedPreprint
+final class ReviewedPreprintClient
 {
     const TYPE_REVIEWED_PREPRINT = 'application/vnd.elife.reviewed-preprint+json';
     const TYPE_REVIEWED_PREPRINT_LIST = 'application/vnd.elife.reviewed-preprint-list+json';
