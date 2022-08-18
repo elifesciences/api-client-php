@@ -10,7 +10,7 @@ use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Request;
 use PhpSpec\ObjectBehavior;
 
-final class ReviewedPreprintSpec extends ObjectBehavior
+final class ReviewedPreprintsClientSpec extends ObjectBehavior
 {
     private $httpClient;
 
@@ -23,7 +23,7 @@ final class ReviewedPreprintSpec extends ObjectBehavior
 
     public function it_gets_a_reviewed_preprint()
     {
-        $request = new Request('GET', 'reviewed-preprint/3',
+        $request = new Request('GET', 'reviewed-preprints/3',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.reviewed-preprint+json; version=1', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.reviewed-preprint+json',
             1), ['foo' => ['bar', 'baz']]));
@@ -35,16 +35,16 @@ final class ReviewedPreprintSpec extends ObjectBehavior
         ;
     }
 
-    public function it_lists_reviewed_preprint()
+    public function it_lists_reviewed_preprints()
     {
-        $request = new Request('GET', 'reviewed-preprint?page=1&per-page=20&order=desc',
+        $request = new Request('GET', 'reviewed-preprints?page=1&per-page=20&order=desc',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.reviewed-preprint-list+json; version=1', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.reviewed-preprint-list+json',
             1), ['foo' => ['bar', 'baz']]));
 
         $this->httpClient->send($request)->willReturn($response);
 
-        $this->listReviewedPreprint(['Accept' => 'application/vnd.elife.reviewed-preprint-list+json; version=1'],
+        $this->listReviewedPreprints(['Accept' => 'application/vnd.elife.reviewed-preprint-list+json; version=1'],
             1, 20, true)->shouldBeLike($response)
         ;
     }
