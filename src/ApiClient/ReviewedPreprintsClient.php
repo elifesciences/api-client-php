@@ -25,7 +25,7 @@ final class ReviewedPreprintsClient
     ) : PromiseInterface {
         return $this->getRequest(
             $this->createUri([
-                'path' => 'reviewed-preprint',
+                'path' => 'reviewed-preprints',
                 'query' => [
                     'page' => $page,
                     'per-page' => $perPage,
