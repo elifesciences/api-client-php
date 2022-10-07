@@ -14,7 +14,7 @@ final class ReviewedPreprintsClient
 
     public function getReviewedPreprint(array $headers, string $id) : PromiseInterface
     {
-        return $this->getRequest($this->createUri(['path' => "reviewed-preprints/$id"]), $headers);
+        return $this->getRequest($this->createUri(['path' => "reviewed-preprint/$id"]), $headers);
     }
 
     public function listReviewedPreprints(
@@ -25,7 +25,7 @@ final class ReviewedPreprintsClient
     ) : PromiseInterface {
         return $this->getRequest(
             $this->createUri([
-                'path' => 'reviewed-preprints',
+                'path' => 'reviewed-preprint',
                 'query' => [
                     'page' => $page,
                     'per-page' => $perPage,
