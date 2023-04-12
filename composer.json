@@ -18,7 +18,7 @@
         "php": "^7.0 || ^8.0",
         "beberlei/assert": "^2.2",
         "composer/package-versions-deprecated": "1.11.99.2",
-        "crell/api-problem": "^2.0",
+        "crell/api-problem": "^3.6",
         "guzzlehttp/promises": "^1.0",
         "guzzlehttp/psr7": "^1.0",
         "psr/http-message": "^1.0"
