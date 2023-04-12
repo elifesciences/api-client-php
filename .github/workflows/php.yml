@@ -1,0 +1,27 @@
+name: PHP CI
+
+on: push
+
+jobs:
+  php:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['7.0', '8.0']
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup PHP ${{ matrix.php-version }}
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        coverage: pcov # (optional) enable code coverage
+
+    - name: Install dependencies
+      run: composer install
+
+    - name: Run tests
+      run: vendor/bin/phpunit
