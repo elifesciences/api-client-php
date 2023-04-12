@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ['7.0', '8.0']
+        php-version: ['7.1', '8.0']
 
     steps:
     - name: Checkout code
