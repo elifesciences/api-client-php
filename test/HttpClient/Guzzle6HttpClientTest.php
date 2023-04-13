@@ -3,6 +3,7 @@
 namespace eLife\ApiClient\HttpClient;
 
 use Crell\ApiProblem\ApiProblem;
+use Crell\ApiProblem\JsonException;
 use eLife\ApiClient\Exception\ApiException;
 use eLife\ApiClient\Exception\ApiProblemResponse;
 use eLife\ApiClient\Exception\ApiTimeout;
@@ -116,7 +117,7 @@ final class Guzzle6HttpClientTest extends TestCase
 
         $client = new Guzzle6HttpClient($this->guzzle);
 
-        $this->expectException(BadResponse::class);
+        $this->expectException(JsonException::class);
 
         $client->send($request)->wait();
     }
