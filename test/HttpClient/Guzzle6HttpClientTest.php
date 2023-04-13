@@ -10,6 +10,7 @@ use eLife\ApiClient\Exception\BadResponse;
 use eLife\ApiClient\Exception\NetworkProblem;
 use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\Client;
+use PHPUnit\Framework\TestCase;
 use function GuzzleHttp\default_user_agent;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
@@ -23,7 +24,7 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_TestCase;
 use Traversable;
 
-final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
+final class Guzzle6HttpClientTest extends TestCase
 {
     private $mock;
     private $history;

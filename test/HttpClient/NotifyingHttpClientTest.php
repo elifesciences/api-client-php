@@ -3,13 +3,14 @@
 namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\HttpClient;
+use PHPUnit\Framework\TestCase;
 use function GuzzleHttp\Promise\promise_for;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_TestCase;
 use RuntimeException;
 
-final class NotifyingHttpClientTest extends PHPUnit_Framework_TestCase
+final class NotifyingHttpClientTest extends TestCase
 {
     private $mock;
     private $guzzle;
@@ -18,7 +19,7 @@ final class NotifyingHttpClientTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->originalClient = $this->getMock(HttpClient::class);
+        $this->originalClient = $this->createMock(HttpClient::class);
         $this->client = new NotifyingHttpClient($this->originalClient);
     }
 
