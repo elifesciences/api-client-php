@@ -3,34 +3,21 @@ name: PHP CI
 on: push
 
 jobs:
-  php7_1:
+  php:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['7.1', '8.0']
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Setup PHP 7.1
+    - name: Setup PHP ${{ matrix.php-version }}
       uses: shivammathur/setup-php@v2
       with:
-        coverage: pcov # (optional) enable code coverage
-        php-version: 7.1
+        php-version: ${{ matrix.php-version }}
 
     - name: Run tests
       run: dependencies=lowest ./project_tests.sh
-
-  php8_0:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup PHP 8.0
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.0
-          coverage: pcov # (optional) enable code coverage
-
-      - name: Run tests
-        run: dependencies=lowest ./project_tests.sh
