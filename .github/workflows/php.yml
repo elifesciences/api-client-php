@@ -16,9 +16,6 @@ jobs:
         coverage: pcov # (optional) enable code coverage
         php-version: 7.1
 
-    - name: Install dependencies
-      run: composer install --no-interaction
-
     - name: Run tests
       run: dependencies=lowest ./project_tests.sh
 
@@ -34,9 +31,6 @@ jobs:
         with:
           php-version: 8.0
           coverage: pcov # (optional) enable code coverage
-
-      - name: Install dependencies
-        run:  composer install --no-interaction && composer require phpunit/phpunit:^7.3
 
       - name: Run tests
         run: dependencies=lowest ./project_tests.sh
