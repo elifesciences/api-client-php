@@ -3,7 +3,7 @@ name: PHP CI
 on: push
 
 jobs:
-  php7.1:
+  php7_1:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
     - name: Run tests
       run: vendor/bin/phpunit
 
-  php8.0:
+  php8_0:
     runs-on: ubuntu-latest
 
     steps:
