@@ -14,6 +14,8 @@ final class NotifyingHttpClientTest extends TestCase
 {
     private $mock;
     private $guzzle;
+    private $originalClient;
+    private $client;
 
     protected function setUp()
     {
