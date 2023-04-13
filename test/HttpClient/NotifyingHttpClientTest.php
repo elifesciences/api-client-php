@@ -17,7 +17,7 @@ final class NotifyingHttpClientTest extends TestCase
     private $originalClient;
     private $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

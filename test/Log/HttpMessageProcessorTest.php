@@ -11,7 +11,7 @@ use PHPUnit_Framework_TestCase;
 
 class HttpMessageProcessorTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->processor = new HttpMessageProcessor();
     }

@@ -32,7 +32,7 @@ final class Guzzle6HttpClientTest extends TestCase
     private $stack;
     private $guzzle;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
