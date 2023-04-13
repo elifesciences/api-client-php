@@ -20,7 +20,7 @@ jobs:
       run: composer install --no-interaction
 
     - name: Run tests
-      run: vendor/bin/phpunit
+      run: dependencies=lowest ./project_tests.sh
 
   php8_0:
     runs-on: ubuntu-latest
@@ -39,4 +39,4 @@ jobs:
         run:  composer install --no-interaction && composer require phpunit/phpunit:^7.3
 
       - name: Run tests
-        run: vendor/bin/phpunit
+        run: dependencies=lowest ./project_tests.sh
