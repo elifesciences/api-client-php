@@ -6,9 +6,9 @@ use eLife\ApiClient\HttpClient;
 use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_TestCase;
 
-class BatchingHttpClientTest extends TestCase
+class BatchingHttpClientTest extends PHPUnit_Framework_TestCase
 {
     public function testRandomSequenceOfSendAndWaits()
     {
