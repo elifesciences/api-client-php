@@ -19,5 +19,8 @@ jobs:
       with:
         php-version: ${{ matrix.php-version }}
 
-    - name: Run tests
+    - name: Run tests lowest
+      run: dependencies=lowest ./project_tests.sh
+
+    - name: Run tests default
       run: dependencies=default ./project_tests.sh
