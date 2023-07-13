@@ -117,7 +117,7 @@ final class Guzzle6HttpClientTest extends TestCase
 
         $client = new Guzzle6HttpClient($this->guzzle);
 
-        $this->expectException(JsonException::class);
+        $this->expectException(BadResponse::class);
 
         $client->send($request)->wait();
     }
