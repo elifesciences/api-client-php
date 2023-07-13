@@ -20,4 +20,4 @@ jobs:
         php-version: ${{ matrix.php-version }}
 
     - name: Run tests
-      run: dependencies=lowest ./project_tests.sh
+      run: dependencies=default ./project_tests.sh
