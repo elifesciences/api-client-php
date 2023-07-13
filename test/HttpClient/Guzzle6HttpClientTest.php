@@ -111,13 +111,29 @@ final class Guzzle6HttpClientTest extends TestCase
     public function it_throws_response_exceptions_on_broken_api_problems()
     {
         $request = new Request('GET', 'foo');
-        $response = new Response(404, ['Content-Type' => 'application/problem+json'], 'foo bar baz');
+        $response = new Response(404, ['Content-Type' => 'application/problem+json'], json_encode(['foo' => 'bar']));
 
         $this->mock->append($response);
 
         $client = new Guzzle6HttpClient($this->guzzle);
 
         $this->expectException(BadResponse::class);
+
+        $client->send($request)->wait();
+    }
+    /**
+     * @test
+     */
+    public function it_throws_api_exceptions_on_invalid_json_response()
+    {
+        $request = new Request('GET', 'foo');
+        $response = new Response(200, ['Content-Type' => 'application/vnd.elife.labs-post+json; version=1'], 'fo bar baz');
+
+        $this->mock->append($response);
+
+        $client = new Guzzle6HttpClient($this->guzzle);
+
+        $this->expectException(ApiException::class);
 
         $client->send($request)->wait();
     }
