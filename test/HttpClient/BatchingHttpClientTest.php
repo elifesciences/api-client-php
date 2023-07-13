@@ -11,7 +11,7 @@ use Psr\Http\Message\RequestInterface;
 
 class BatchingHttpClientTest extends TestCase
 {
-    public function testRandomSequenceOfSendAndWaitsDataProvider()
+    public function providerRandomSequenceOfSendAndWaits()
     {
         $data = [];
         $batchSize = mt_rand(1, 100);
@@ -31,7 +31,7 @@ class BatchingHttpClientTest extends TestCase
     }
 
     /**
-     * @dataProvider testRandomSequenceOfSendAndWaitsDataProvider
+     * @dataProvider providerRandomSequenceOfSendAndWaits
      */
     public function testRandomSequenceOfSendAndWaits(
         int $batchSize,

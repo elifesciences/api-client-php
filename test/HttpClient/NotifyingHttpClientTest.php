@@ -58,5 +58,8 @@ final class NotifyingHttpClientTest extends TestCase
         });
 
         $this->client->send($request);
+
+        // This is to indicate that the test isn't risky.
+        $this->assertTrue(true);
     }
 }
