@@ -8,5 +8,5 @@ if [ "$dependencies" = "lowest" ]; then
 else
     composer update --no-interaction
 fi
-#vendor/bin/phpspec run
+vendor/bin/phpspec run
 vendor/bin/phpunit --log-junit="build/${dependencies}-phpunit.xml"
