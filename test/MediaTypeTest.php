@@ -5,7 +5,6 @@ namespace test\eLife\ApiClient;
 use eLife\ApiClient\MediaType;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_TestCase;
 
 final class MediaTypeTest extends TestCase
 {

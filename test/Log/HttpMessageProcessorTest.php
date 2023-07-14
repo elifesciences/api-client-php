@@ -7,7 +7,6 @@ use eLife\ApiClient\Exception\NetworkProblem;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_TestCase;
 
 class HttpMessageProcessorTest extends TestCase
 {

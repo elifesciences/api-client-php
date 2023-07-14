@@ -3,7 +3,6 @@
 namespace eLife\ApiClient\HttpClient;
 
 use Crell\ApiProblem\ApiProblem;
-use Crell\ApiProblem\JsonException;
 use eLife\ApiClient\Exception\ApiException;
 use eLife\ApiClient\Exception\ApiProblemResponse;
 use eLife\ApiClient\Exception\ApiTimeout;
@@ -22,7 +21,6 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\Promise\RejectedPromise;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit_Framework_TestCase;
 use Traversable;
 
 final class Guzzle6HttpClientTest extends TestCase

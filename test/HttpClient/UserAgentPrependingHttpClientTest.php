@@ -5,7 +5,6 @@ namespace eLife\ApiClient\HttpClient;
 use eLife\ApiClient\HttpClient;
 use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_TestCase;
 use Psr\Http\Message\RequestInterface;
 use Traversable;
 

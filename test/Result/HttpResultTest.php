@@ -5,7 +5,6 @@ namespace test\eLife\ApiClient\Result;
 use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_TestCase;
 use TypeError;
 use UnexpectedValueException;
 

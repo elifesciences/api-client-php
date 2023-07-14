@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 use function GuzzleHttp\Promise\promise_for;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit_Framework_TestCase;
 use RuntimeException;
 
 final class NotifyingHttpClientTest extends TestCase
