@@ -37,7 +37,7 @@ final class ReviewedPreprintsClientSpec extends ObjectBehavior
 
     public function it_lists_reviewed_preprints()
     {
-        $request = new Request('GET', 'reviewed-preprints?page=1&per-page=20&order=desc',
+        $request = new Request('GET', 'reviewed-preprints?page=1&per-page=20&order=desc&use-date=default',
             ['X-Foo' => 'bar', 'Accept' => 'application/vnd.elife.reviewed-preprint-list+json; version=1', 'User-Agent' => 'eLifeApiClient/'.Version::get()]);
         $response = new FulfilledPromise(new ArrayResult(new MediaType('application/vnd.elife.reviewed-preprint-list+json',
             1), ['foo' => ['bar', 'baz']]));
