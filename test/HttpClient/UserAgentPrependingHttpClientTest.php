@@ -4,11 +4,11 @@ namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\HttpClient;
 use GuzzleHttp\Psr7\Request;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Traversable;
 
-final class UserAgentPrependingHttpClientTest extends PHPUnit_Framework_TestCase
+final class UserAgentPrependingHttpClientTest extends TestCase
 {
     private $originalClient;
     private $requests;
@@ -20,7 +20,7 @@ final class UserAgentPrependingHttpClientTest extends PHPUnit_Framework_TestCase
     {
         $this->requests = [];
 
-        $this->originalClient = new NotifyingHttpClient($this->getMock(HttpClient::class));
+        $this->originalClient = new NotifyingHttpClient($this->createMock(HttpClient::class));
 
         $this->originalClient->addRequestListener(function (RequestInterface $request) {
             $this->requests[] = $request;

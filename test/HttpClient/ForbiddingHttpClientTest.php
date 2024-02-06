@@ -4,9 +4,9 @@ namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\Exception\UnintendedInteraction;
 use GuzzleHttp\Psr7\Request;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-final class ForbiddingHttpClientTest extends PHPUnit_Framework_TestCase
+final class ForbiddingHttpClientTest extends TestCase
 {
     /**
      * @test
