@@ -2,6 +2,7 @@
 
 namespace eLife\ApiClient\ApiClient;
 
+use DateTimeImmutable;
 use eLife\ApiClient\ApiClient;
 use GuzzleHttp\Promise\PromiseInterface;
 
@@ -21,7 +22,10 @@ final class ReviewedPreprintsClient
         array $headers = [],
         int $page = 1,
         int $perPage = 20,
-        bool $descendingOrder = true
+        bool $descendingOrder = true,
+        string $useDate = 'default',
+        DateTimeImmutable $starts = null,
+        DateTimeImmutable $ends = null
     ) : PromiseInterface {
         return $this->getRequest(
             $this->createUri([
@@ -30,6 +34,9 @@ final class ReviewedPreprintsClient
                     'page' => $page,
                     'per-page' => $perPage,
                     'order' => $descendingOrder ? 'desc' : 'asc',
+                    'use-date' => $useDate,
+                    'start-date' => $starts ? $starts->format('Y-m-d') : null,
+                    'end-date' => $ends ? $ends->format('Y-m-d') : null,
                 ],
             ]),
             $headers
