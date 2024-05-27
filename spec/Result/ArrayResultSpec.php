@@ -53,7 +53,7 @@ final class ArrayResultSpec extends ObjectBehavior
     public function it_can_be_accessed_like_an_array()
     {
         $this->shouldHaveType(ArrayAccess::class);
-//        $this->offsetExists('foo')->shouldBe(true);
+        $this->offsetExists('foo')->shouldBe(true);
         $this->offsetGet('foo')->shouldBeLike($this->data['foo']);
     }
 
