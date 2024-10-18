@@ -45,6 +45,7 @@ final class ArrayResult implements IteratorAggregate, Result
         return isset($this->data[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if (false === $this->offsetExists($offset)) {
@@ -54,12 +55,12 @@ final class ArrayResult implements IteratorAggregate, Result
         return $this->data[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new BadMethodCallException('Object is immutable');
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new BadMethodCallException('Object is immutable');
     }

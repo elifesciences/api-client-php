@@ -54,11 +54,9 @@ final class Guzzle6HttpClient implements HttpClient
                         } else {
                             throw new BadResponse($e->getMessage(), $e->getRequest(), $e->getResponse(), $e);
                         }
+                    } elseif ($e instanceof ConnectException && CURLE_OPERATION_TIMEOUTED === ($e->getHandlerContext()['errno'] ?? null)) {
+                        throw new ApiTimeout($e->getMessage(), $e->getRequest(), $e);
                     } elseif ($e instanceof RequestException) {
-                        if ($e instanceof ConnectException && CURLE_OPERATION_TIMEOUTED === ($e->getHandlerContext()['errno'] ?? null)) {
-                            throw new ApiTimeout($e->getMessage(), $e->getRequest(), $e);
-                        }
-
                         throw new NetworkProblem($e->getMessage(), $e->getRequest(), $e);
                     }
 
