@@ -7,7 +7,7 @@ lint: build
 	docker run --rm -v ./:/code -v/code/vendor php-composer:$(PHP_VERSION) bash -c 'vendor/bin/phpcs --standard=phpcs.xml.dist --warning-severity=0 -p src/ test/'
 
 test: build lint
-	docker run --rm -v ./:/code -e dependencies=highest -v/code/vendor php-composer:$(PHP_VERSION) bash -c './project_tests.sh'
+	docker run --rm -v ./:/code -v/code/vendor php-composer:$(PHP_VERSION) bash -c './project_tests.sh'
 
 test-7.1:
 	@$(MAKE) PHP_VERSION=7.1 test
