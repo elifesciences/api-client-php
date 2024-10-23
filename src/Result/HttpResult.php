@@ -7,7 +7,6 @@ use eLife\ApiClient\Result;
 use InvalidArgumentException;
 use Iterator;
 use IteratorAggregate;
-use function JmesPath\search;
 use Psr\Http\Message\ResponseInterface;
 use UnexpectedValueException;
 

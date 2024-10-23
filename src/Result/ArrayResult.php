@@ -8,7 +8,7 @@ use eLife\ApiClient\MediaType;
 use eLife\ApiClient\Result;
 use Iterator;
 use IteratorAggregate;
-use function JmesPath\search;
+use JmesPath\Env;
 
 final class ArrayResult implements IteratorAggregate, Result
 {
@@ -37,7 +37,7 @@ final class ArrayResult implements IteratorAggregate, Result
             throw new BadMethodCallException('Requires mtdowling/jmespath.php');
         }
 
-        return search($expression, $this->data);
+        return Env::search($expression, $this->data);
     }
 
     public function offsetExists($offset) : bool
