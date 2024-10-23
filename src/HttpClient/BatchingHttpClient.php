@@ -3,8 +3,8 @@
 namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\HttpClient;
-use function GuzzleHttp\Promise\all;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Promise\Utils;
 use Psr\Http\Message\RequestInterface;
 
 final class BatchingHttpClient implements HttpClient
@@ -40,7 +40,7 @@ final class BatchingHttpClient implements HttpClient
 
     private function waitOnBatch()
     {
-        all($this->batch)->wait();
+        Utils::all($this->batch)->wait();
 
         $this->batch = [];
     }

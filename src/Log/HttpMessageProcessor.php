@@ -4,7 +4,7 @@ namespace eLife\ApiClient\Log;
 
 use eLife\ApiClient\Exception\BadResponse;
 use eLife\ApiClient\Exception\HttpProblem;
-use GuzzleHttp\Psr7;
+use GuzzleHttp\Psr7\Message;
 use Psr\Http\Message\MessageInterface;
 
 final class HttpMessageProcessor
@@ -26,6 +26,6 @@ final class HttpMessageProcessor
 
     private function dumpHttpMessage(MessageInterface $message)
     {
-        return str_replace("\r", '', Psr7\str($message));
+        return str_replace("\r", '', Message::toString($message));
     }
 }

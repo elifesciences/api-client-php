@@ -4,7 +4,7 @@ namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\HttpClient;
 use PHPUnit\Framework\TestCase;
-use function GuzzleHttp\Promise\promise_for;
+use GuzzleHttp\Promise\Create;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use RuntimeException;
@@ -34,7 +34,7 @@ final class NotifyingHttpClientTest extends TestCase
         $this->originalClient->expects($this->once())
             ->method('send')
             ->with($request)
-            ->will($this->returnValue(promise_for($response)));
+            ->will($this->returnValue(Create::promiseFor($response)));
         $this->sentRequests = [];
         $this->client->addRequestListener(function ($request) {
             $this->sentRequests[] = $request;

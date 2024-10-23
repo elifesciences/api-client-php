@@ -16,7 +16,7 @@ use function GuzzleHttp\default_user_agent;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
-use function GuzzleHttp\Promise\exception_for;
+use GuzzleHttp\Promise\Create;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -41,7 +41,7 @@ final class Guzzle6HttpClient implements HttpClient
                 }
             )->otherwise(
                 function ($reason) {
-                    $e = exception_for($reason);
+                    $e = Create::exceptionFor($reason);
 
                     if ($e instanceof BadResponseException) {
                         if ('application/problem+json' === $e->getResponse()->getHeaderLine('Content-Type')) {
@@ -54,11 +54,9 @@ final class Guzzle6HttpClient implements HttpClient
                         } else {
                             throw new BadResponse($e->getMessage(), $e->getRequest(), $e->getResponse(), $e);
                         }
+                    } elseif ($e instanceof ConnectException && CURLE_OPERATION_TIMEOUTED === ($e->getHandlerContext()['errno'] ?? null)) {
+                        throw new ApiTimeout($e->getMessage(), $e->getRequest(), $e);
                     } elseif ($e instanceof RequestException) {
-                        if ($e instanceof ConnectException && CURLE_OPERATION_TIMEOUTED === ($e->getHandlerContext()['errno'] ?? null)) {
-                            throw new ApiTimeout($e->getMessage(), $e->getRequest(), $e);
-                        }
-
                         throw new NetworkProblem($e->getMessage(), $e->getRequest(), $e);
                     }
 
