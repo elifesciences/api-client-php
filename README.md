@@ -1,8 +1,6 @@
 eLife API client for PHP
 ========================
 
-[![Build Status](http://ci--alfred.elifesciences.org/buildStatus/icon?job=library-api-client-php)](http://ci--alfred.elifesciences.org/job/library-api-client-php/)
-
 This library provides a PHP client for the [eLife Sciences API](https://github.com/elifesciences/api-raml).
 
 Dependencies
