@@ -10,6 +10,7 @@ use eLife\ApiClient\Exception\BadResponse;
 use eLife\ApiClient\Exception\NetworkProblem;
 use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\Client;
+use PHPUnit\Framework\TestCase;
 use function GuzzleHttp\default_user_agent;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
@@ -20,17 +21,16 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\Promise\RejectedPromise;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit_Framework_TestCase;
 use Traversable;
 
-final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
+final class Guzzle6HttpClientTest extends TestCase
 {
     private $mock;
     private $history;
     private $stack;
     private $guzzle;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -109,13 +109,29 @@ final class Guzzle6HttpClientTest extends PHPUnit_Framework_TestCase
     public function it_throws_response_exceptions_on_broken_api_problems()
     {
         $request = new Request('GET', 'foo');
-        $response = new Response(404, ['Content-Type' => 'application/problem+json'], 'foo bar baz');
+        $response = new Response(404, ['Content-Type' => 'application/problem+json'], json_encode(['foo' => 'bar']));
 
         $this->mock->append($response);
 
         $client = new Guzzle6HttpClient($this->guzzle);
 
         $this->expectException(BadResponse::class);
+
+        $client->send($request)->wait();
+    }
+    /**
+     * @test
+     */
+    public function it_throws_api_exceptions_on_invalid_json_response()
+    {
+        $request = new Request('GET', 'foo');
+        $response = new Response(200, ['Content-Type' => 'application/vnd.elife.labs-post+json; version=1'], 'fo bar baz');
+
+        $this->mock->append($response);
+
+        $client = new Guzzle6HttpClient($this->guzzle);
+
+        $this->expectException(ApiException::class);
 
         $client->send($request)->wait();
     }
