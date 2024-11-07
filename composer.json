@@ -37,10 +37,5 @@
         "mtdowling/jmespath.php": "^2.0, to use the Result::search() method",
         "psr/log": "^1.0, to use the WarningCheckingHttpClient adapter",
         "monolog/monolog": "^1.0, to use the HttpMessageProcessor log processor"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x-dev"
-        }
     }
 }
