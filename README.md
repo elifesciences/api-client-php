@@ -18,32 +18,7 @@ Execute `composer require elife/api-client`.
 Usage
 -----
 
-The `eLife\ApiClient\ApiClient` namespace provides separate clients for each part of the eLife API.
-
-Each method on an API client represents an endpoint.
-
-You can pass default headers to an API client, and/or to each API client method. You should provide an `Accept` header stating which versions you support.
-
-API clients always return instances of `GuzzleHttp\Promise\PromiseInterface`, which wrap instances of `eLife\ApiClient\Result`, which in turn wrap the JSON response.
-
-`eLife\ApiClient\Result` provides integration with the [JMESPath](http://jmespath.org/) (using [jmespath.php](https://github.com/jmespath/jmespath.php)), to allow easy searching of JSON responses.
-
-### Basic example
-
-To list the Labs Post IDs that appear on the first page of the endpoint:
-
-```php
-use eLife\ApiClient\ApiClient\LabsClient;
-use eLife\ApiClient\HttpClient\Guzzle6HttpClient;
-use eLife\ApiClient\MediaType;
-use GuzzleHttp\Client as Guzzle;
-
-$guzzle = new Guzzle(['base_uri' => 'https://api.elifesciences.org/']);
-$httpClient = new Guzzle6HttpClient($guzzle);
-$labsClient = new LabsClient($httpClient);
-
-var_dump($labsClient->listPosts(['Accept' => new MediaType(LabsClient::TYPE_POST_LIST, 1)])->wait()->search('items[*].id'));
-```
+This library provides base HTTP functionality for the classes available in [`elife/api-sdk-php`](https://github.com/elifesciences/api-sdk-php). Please use that package instead of consuming this directly.
 
 ### Deprecation warnings
 
