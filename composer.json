@@ -19,7 +19,7 @@
         "beberlei/assert": ">=2.2",
         "composer/package-versions-deprecated": "1.11.99.2",
         "crell/api-problem": "^3.6",
-        "guzzlehttp/promises": "^1.0",
+        "guzzlehttp/promises": "^1.0 || ^2.0",
         "guzzlehttp/psr7": "^1.0 || ^2.7",
         "psr/http-message": "^1.0"
     },
