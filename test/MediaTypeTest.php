@@ -4,14 +4,15 @@ namespace test\eLife\ApiClient;
 
 use eLife\ApiClient\MediaType;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class MediaTypeTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider invalidMediaTypeProvider
-     */
+
+    #[Test]
+    #[DataProvider('invalidMediaTypeProvider')]
     public function it_throws_an_exception_when_a_media_type_is_invalid($mediaType, string $expectedException, string $expectedExceptionMessage)
     {
         $this->expectException($expectedException);
@@ -20,7 +21,7 @@ final class MediaTypeTest extends TestCase
         new MediaType($mediaType, 1);
     }
 
-    public function invalidMediaTypeProvider()
+    public static function invalidMediaTypeProvider()
     {
         return [
             'empty string' => ['', InvalidArgumentException::class, "'' is not a valid media type"],
@@ -30,10 +31,8 @@ final class MediaTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider invalidVersionProvider
-     */
+    #[Test]
+    #[DataProvider('invalidVersionProvider')]
     public function it_throws_an_exception_when_a_version_is_invalid($version, string $expectedException, string $expectedExceptionMessage)
     {
         $this->expectException($expectedException);
@@ -42,7 +41,7 @@ final class MediaTypeTest extends TestCase
         new MediaType('application/json', $version);
     }
 
-    public function invalidVersionProvider()
+    public static function invalidVersionProvider()
     {
         return [
             'negative number' => [-1, InvalidArgumentException::class, 'Version must be at least 1, got -1'],
@@ -50,10 +49,8 @@ final class MediaTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider invalidStringProvider
-     */
+    #[Test]
+    #[DataProvider('invalidStringProvider')]
     public function it_throws_an_exception_when_a_string_input_is_invalid($string, string $expectedException, string $expectedExceptionMessage)
     {
         $this->expectException($expectedException);
@@ -62,7 +59,7 @@ final class MediaTypeTest extends TestCase
         MediaType::fromString($string);
     }
 
-    public function invalidStringProvider()
+    public static function invalidStringProvider()
     {
         return [
             'empty string' => ['', InvalidArgumentException::class, 'Media type is blank'],

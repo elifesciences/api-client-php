@@ -6,12 +6,14 @@ use eLife\ApiClient\HttpClient;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 class BatchingHttpClientTest extends TestCase
 {
-    public function providerRandomSequenceOfSendAndWaits()
+    public static function providerRandomSequenceOfSendAndWaits()
     {
         $data = [];
         $batchSize = mt_rand(1, 100);
@@ -30,9 +32,8 @@ class BatchingHttpClientTest extends TestCase
         return $data;
     }
 
-    /**
-     * @dataProvider providerRandomSequenceOfSendAndWaits
-     */
+    #[Test]
+    #[DataProvider('providerRandomSequenceOfSendAndWaits')]
     public function testRandomSequenceOfSendAndWaits(
         int $batchSize,
         array $steps,

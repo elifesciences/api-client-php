@@ -10,8 +10,10 @@ use eLife\ApiClient\Exception\BadResponse;
 use eLife\ApiClient\Exception\NetworkProblem;
 use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\Client;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use function GuzzleHttp\default_user_agent;
+use GuzzleHttp\Utils;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\TransferException;
@@ -23,7 +25,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Traversable;
 
-final class Guzzle6HttpClientTest extends TestCase
+final class Guzzle7HttpClientTest extends TestCase
 {
     private $mock;
     private $history;
@@ -43,9 +45,7 @@ final class Guzzle6HttpClientTest extends TestCase
         $this->guzzle = new Client(['handler' => $this->stack]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_returns_results()
     {
         $request = new Request('GET', 'foo');
@@ -55,15 +55,13 @@ final class Guzzle6HttpClientTest extends TestCase
 
         $this->mock->append($response);
 
-        $client = new Guzzle6HttpClient($this->guzzle);
+        $client = new Guzzle7HttpClient($this->guzzle);
 
         $this->assertEquals($result, $client->send($request)->wait());
     }
 
-    /**
-     * @test
-     * @dataProvider userAgentProvider
-     */
+    #[Test]
+    #[DataProvider('userAgentProvider')]
     public function it_sets_a_user_agent(string $existing = null, string $expected)
     {
         $request = new Request('GET', 'foo', ['User-Agent' => $existing]);
@@ -72,22 +70,20 @@ final class Guzzle6HttpClientTest extends TestCase
 
         $this->mock->append($response);
 
-        $client = new Guzzle6HttpClient($this->guzzle);
+        $client = new Guzzle7HttpClient($this->guzzle);
 
         $client->send($request)->wait();
 
         $this->assertSame($expected, $this->history[0]['request']->getHeaderLine('User-Agent'));
     }
 
-    public function userAgentProvider() : Traversable
+    public static function userAgentProvider() : Traversable
     {
-        yield 'sets when empty' => [null, default_user_agent()];
-        yield 'appends to existing' => ['bar', sprintf('bar %s', default_user_agent())];
+        yield 'sets when empty' => [null, Utils::defaultUserAgent()];
+        yield 'appends to existing' => ['bar', sprintf('bar %s', Utils::defaultUserAgent())];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_api_problems()
     {
         $request = new Request('GET', 'foo');
@@ -96,16 +92,14 @@ final class Guzzle6HttpClientTest extends TestCase
 
         $this->mock->append($response);
 
-        $client = new Guzzle6HttpClient($this->guzzle);
+        $client = new Guzzle7HttpClient($this->guzzle);
 
         $this->expectException(ApiProblemResponse::class);
 
         $client->send($request)->wait();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_response_exceptions_on_broken_api_problems()
     {
         $request = new Request('GET', 'foo');
@@ -113,15 +107,14 @@ final class Guzzle6HttpClientTest extends TestCase
 
         $this->mock->append($response);
 
-        $client = new Guzzle6HttpClient($this->guzzle);
+        $client = new Guzzle7HttpClient($this->guzzle);
 
         $this->expectException(BadResponse::class);
 
         $client->send($request)->wait();
     }
-    /**
-     * @test
-     */
+
+    #[Test]
     public function it_throws_api_exceptions_on_invalid_json_response()
     {
         $request = new Request('GET', 'foo');
@@ -129,16 +122,14 @@ final class Guzzle6HttpClientTest extends TestCase
 
         $this->mock->append($response);
 
-        $client = new Guzzle6HttpClient($this->guzzle);
+        $client = new Guzzle7HttpClient($this->guzzle);
 
         $this->expectException(ApiException::class);
 
         $client->send($request)->wait();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_response_exceptions()
     {
         $request = new Request('GET', 'foo');
@@ -147,76 +138,66 @@ final class Guzzle6HttpClientTest extends TestCase
 
         $this->mock->append($response);
 
-        $client = new Guzzle6HttpClient($this->guzzle);
+        $client = new Guzzle7HttpClient($this->guzzle);
 
         $this->expectException(BadResponse::class);
 
         $client->send($request)->wait();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_api_timeout_exceptions()
     {
         $request = new Request('GET', 'foo');
         $this->mock->append(new ConnectException('Problem', $request, null, ['errno' => 28, 'error' => 'Timeout']));
 
-        $client = new Guzzle6HttpClient($this->guzzle);
+        $client = new Guzzle7HttpClient($this->guzzle);
 
         $this->expectException(ApiTimeout::class);
 
         $client->send($request)->wait();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_network_exceptions()
     {
         $request = new Request('GET', 'foo');
         $this->mock->append(new RequestException('Problem', $request));
 
-        $client = new Guzzle6HttpClient($this->guzzle);
+        $client = new Guzzle7HttpClient($this->guzzle);
 
         $this->expectException(NetworkProblem::class);
 
         $client->send($request)->wait();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_api_exceptions()
     {
         $request = new Request('GET', 'foo');
         $this->mock->append(new TransferException());
 
-        $client = new Guzzle6HttpClient($this->guzzle);
+        $client = new Guzzle7HttpClient($this->guzzle);
 
         $this->expectException(ApiException::class);
 
         $client->send($request)->wait();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_api_exceptions_on_non_throwables()
     {
         $request = new Request('GET', 'foo');
         $this->mock->append(new RejectedPromise('error'));
 
-        $client = new Guzzle6HttpClient($this->guzzle);
+        $client = new Guzzle7HttpClient($this->guzzle);
 
         $this->expectException(ApiException::class);
 
         $client->send($request)->wait();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_api_exceptions_when_guzzle_is_set_to_not_throw_exceptions()
     {
         $request = new Request('GET', 'foo');
@@ -226,7 +207,7 @@ final class Guzzle6HttpClientTest extends TestCase
         $this->mock->append($response);
 
         $guzzle = new Client(['handler' => $this->stack, 'http_errors' => false]);
-        $client = new Guzzle6HttpClient($guzzle);
+        $client = new Guzzle7HttpClient($guzzle);
 
         $this->expectException(ApiProblemResponse::class);
 
