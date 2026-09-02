@@ -9,7 +9,7 @@ use Psr\Http\Message\MessageInterface;
 
 final class HttpMessageProcessor
 {
-    public function __invoke($record): array
+    public function __invoke($record)
     {
         if (array_key_exists('exception', $record['context'])) {
             $exception = $record['context']['exception'];
