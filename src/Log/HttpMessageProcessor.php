@@ -9,7 +9,7 @@ use Psr\Http\Message\MessageInterface;
 
 final class HttpMessageProcessor
 {
-    public function __invoke(array $record)
+    public function __invoke($record): array
     {
         if (array_key_exists('exception', $record['context'])) {
             $exception = $record['context']['exception'];
@@ -24,7 +24,7 @@ final class HttpMessageProcessor
         return $record;
     }
 
-    private function dumpHttpMessage(MessageInterface $message)
+    private function dumpHttpMessage(MessageInterface $message): array|string
     {
         return str_replace("\r", '', Message::toString($message));
     }
