@@ -15,7 +15,7 @@ class ApiProblemResponse extends BadResponse
         ApiProblem $apiProblem,
         RequestInterface $request,
         ResponseInterface $response,
-        Throwable $previous = null
+        ?Throwable $previous = null
     ) {
         parent::__construct((string) $apiProblem->getTitle(), $request, $response, $previous);
 

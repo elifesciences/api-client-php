@@ -15,7 +15,7 @@
         }
     },
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "beberlei/assert": "^3.3",
         "composer/package-versions-deprecated": "1.11.99.2",
         "crell/api-problem": "^3.6",
@@ -26,7 +26,7 @@
     "require-dev": {
         "guzzlehttp/guzzle": "^7.0",
         "mtdowling/jmespath.php": "^2.0",
-        "phpspec/phpspec": "^7.5",
+        "phpspec/phpspec": "^8.0",
         "phpspec/prophecy": "^1.10",
         "phpunit/phpunit": "^12.5.0",
         "psr/log": "^1.0",
