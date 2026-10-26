@@ -6,6 +6,7 @@ use eLife\ApiClient\Exception\BadResponse;
 use eLife\ApiClient\Exception\NetworkProblem;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class HttpMessageProcessorTest extends TestCase
@@ -15,9 +16,7 @@ class HttpMessageProcessorTest extends TestCase
         $this->processor = new HttpMessageProcessor();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_dumps_requests()
     {
         $decoratedRecord = $this->processor->__invoke([
@@ -37,9 +36,7 @@ EOT;
         $this->assertEquals($requestDump, $decoratedRecord['extra']['request']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_dumps_responses()
     {
         $decoratedRecord = $this->processor->__invoke([

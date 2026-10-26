@@ -9,7 +9,7 @@ abstract class HttpProblem extends ApiException
 {
     private $request;
 
-    public function __construct(string $message, RequestInterface $request, Throwable $previous = null)
+    public function __construct(string $message, RequestInterface $request, ?Throwable $previous = null)
     {
         parent::__construct($message, $previous);
 

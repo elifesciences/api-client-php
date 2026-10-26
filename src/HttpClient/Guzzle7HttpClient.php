@@ -12,7 +12,7 @@ use eLife\ApiClient\Exception\NetworkProblem;
 use eLife\ApiClient\HttpClient;
 use eLife\ApiClient\Result\HttpResult;
 use GuzzleHttp\ClientInterface;
-use function GuzzleHttp\default_user_agent;
+use GuzzleHttp\Utils;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
@@ -21,7 +21,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-final class Guzzle6HttpClient implements HttpClient
+final class Guzzle7HttpClient implements HttpClient
 {
     private $client;
 
@@ -32,7 +32,10 @@ final class Guzzle6HttpClient implements HttpClient
 
     public function send(RequestInterface $request) : PromiseInterface
     {
-        $request = $request->withHeader('User-Agent', trim(($request->getHeader('User-Agent')[0] ?? '').' '.default_user_agent()));
+        $request = $request->withHeader(
+            'User-Agent',
+            trim(($request->getHeader('User-Agent')[0] ?? '').' '. Utils::defaultUserAgent())
+        );
 
         return $this->client->sendAsync($request, ['http_errors' => true])
             ->then(
