@@ -6,9 +6,9 @@ This library provides a PHP client for the [eLife Sciences API](https://github.c
 Dependencies
 ------------
 
-* PHP 7
+* PHP 8.4+
 
-You will need an implementation of `eLife\ApiClient\HttpClient`; the client provides an adapter for [Guzzle 6](http://guzzlephp.org/).
+You will need an implementation of `eLife\ApiClient\HttpClient`; the client provides an adapter for Guzzle Http v7.
 
 Installation and usage 
 ----------------------
