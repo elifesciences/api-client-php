@@ -11,7 +11,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PhpSpec\ObjectBehavior;
 
-final class Guzzle6HttpClientSpec extends ObjectBehavior
+final class Guzzle7HttpClientSpec extends ObjectBehavior
 {
     private $mock;
     private $guzzle;

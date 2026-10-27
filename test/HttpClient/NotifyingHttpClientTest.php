@@ -3,6 +3,7 @@
 namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\HttpClient;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Promise\Create;
 use GuzzleHttp\Psr7\Request;
@@ -24,9 +25,7 @@ final class NotifyingHttpClientTest extends TestCase
         $this->client = new NotifyingHttpClient($this->originalClient);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_allows_listeners_to_monitor_requests()
     {
         $request = new Request('GET', 'foo');
@@ -34,7 +33,7 @@ final class NotifyingHttpClientTest extends TestCase
         $this->originalClient->expects($this->once())
             ->method('send')
             ->with($request)
-            ->will($this->returnValue(Create::promiseFor($response)));
+            ->willReturn(Create::promiseFor($response));
         $this->sentRequests = [];
         $this->client->addRequestListener(function ($request) {
             $this->sentRequests[] = $request;
@@ -45,9 +44,7 @@ final class NotifyingHttpClientTest extends TestCase
         $this->assertEquals([$request], $this->sentRequests);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_does_not_propagate_errors_of_listeners()
     {
         $request = new Request('GET', 'foo');

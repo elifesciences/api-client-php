@@ -14,7 +14,7 @@ class BadResponse extends HttpProblem
         string $message,
         RequestInterface $request,
         ResponseInterface $response,
-        Throwable $previous = null
+        ?Throwable $previous = null
     ) {
         parent::__construct($message, $request, $previous);
 

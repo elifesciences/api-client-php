@@ -24,7 +24,7 @@ final class WarningCheckingHttpClient implements HttpClient
         return $this->httpClient->send($request)->then(
             function (HttpResult $result) {
                 foreach ($result->getResponse()->getHeader('Warning') as $warning) {
-                    $parts = str_getcsv($warning, ' ');
+                    $parts = str_getcsv($warning, ' ', '"', '\\');
                     if ('299' !== $parts[0] || 'elifesciences.org' !== $parts[1] || empty($parts[2])) {
                         continue;
                     }

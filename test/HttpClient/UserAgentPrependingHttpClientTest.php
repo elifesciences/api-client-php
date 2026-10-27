@@ -4,6 +4,9 @@ namespace eLife\ApiClient\HttpClient;
 
 use eLife\ApiClient\HttpClient;
 use GuzzleHttp\Psr7\Request;
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Traversable;
@@ -13,9 +16,7 @@ final class UserAgentPrependingHttpClientTest extends TestCase
     private $originalClient;
     private $requests;
 
-    /**
-     * @before
-     */
+    #[Before]
     protected function setUpOriginalClient()
     {
         $this->requests = [];
@@ -27,10 +28,8 @@ final class UserAgentPrependingHttpClientTest extends TestCase
         });
     }
 
-    /**
-     * @test
-     * @dataProvider userAgentProvider
-     */
+    #[Test]
+    #[DataProvider('userAgentProvider')]
     public function it_sets_a_user_agent(string $existing = null, string $input, string $expected)
     {
         $request = new Request('GET', 'foo', ['User-Agent' => $existing]);
@@ -42,7 +41,7 @@ final class UserAgentPrependingHttpClientTest extends TestCase
         $this->assertSame($expected, $this->requests[0]->getHeaderLine('User-Agent'));
     }
 
-    public function userAgentProvider() : Traversable
+    public static function userAgentProvider() : Traversable
     {
         yield 'sets when empty' => [null, 'foo', 'foo'];
         yield 'prepends to existing' => ['bar', 'foo', 'foo bar'];
